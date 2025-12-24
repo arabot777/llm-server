@@ -23,6 +23,7 @@ import (
 	"github.com/wavespeed/llm-server/core/middleware"
 	"github.com/wavespeed/llm-server/core/model"
 	"github.com/wavespeed/llm-server/core/router"
+	"github.com/wavespeed/llm-server/core/service"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -89,10 +90,11 @@ func initializeOptionAndCaches() error {
 }
 
 func startSyncServices(ctx context.Context, wg *sync.WaitGroup) {
-	wg.Add(2)
+	wg.Add(3)
 
 	go model.SyncOptions(ctx, wg, time.Second*5)
 	go model.SyncModelConfigAndChannelCache(ctx, wg, time.Second*10)
+	go service.SyncWaveSpeedBalances(ctx, wg, time.Minute*5)
 }
 
 func setupHTTPServer(listen string) (*http.Server, *gin.Engine) {

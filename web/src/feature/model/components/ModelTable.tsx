@@ -39,9 +39,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useAuthStore } from "@/store/auth";
 
 export function ModelTable() {
   const { t } = useTranslation();
+  const userType = useAuthStore((s) => s.userType);
+  const isAdmin = userType === 'admin';
 
   // State management
   const [modelDialogOpen, setModelDialogOpen] = useState(false);
@@ -75,39 +78,44 @@ export function ModelTable() {
     });
   }, [models]);
 
-  // Get channel type name by type ID
-  const getChannelTypeName = (typeId: number): string => {
-    if (!channelTypeMetas) return `Type: ${typeId}`;
-    
-    const typeKey = String(typeId);
-    return channelTypeMetas[typeKey]?.name || `Type: ${typeId}`;
-  };
-
   // Create table columns
-  const columns: ColumnDef<ModelConfig>[] = [
-    {
-      accessorKey: "model",
-      header: () => (
-        <div className="font-medium py-3.5">{t("model.modelName")}</div>
-      ),
-      cell: ({ row }) => (
-        <div className="font-medium">{row.original.model}</div>
-      ),
-    },
-    {
-      accessorKey: "type",
-      header: () => (
-        <div className="font-medium py-3.5">{t("model.modelType")}</div>
-      ),
-      cell: ({ row }) => (
-        <div className="font-medium">
-          {/* @ts-expect-error 动态翻译键 */}
-          {t(`modeType.${row.original.type}`)}
-        </div>
-      ),
-    },
-    {
-      accessorKey: "sets",
+  const columns: ColumnDef<ModelConfig>[] = useMemo(() => {
+    // Get channel type name by type ID
+    const getChannelTypeName = (typeId: number): string => {
+      if (!channelTypeMetas) return `Type: ${typeId}`;
+
+      const typeKey = String(typeId);
+      return channelTypeMetas[typeKey]?.name || `Type: ${typeId}`;
+    };
+
+    const baseColumns: ColumnDef<ModelConfig>[] = [
+      {
+        accessorKey: "model",
+        header: () => (
+          <div className="font-medium py-3.5">{t("model.modelName")}</div>
+        ),
+        cell: ({ row }) => (
+          <div className="font-medium">{row.original.model}</div>
+        ),
+      },
+      {
+        accessorKey: "type",
+        header: () => (
+          <div className="font-medium py-3.5">{t("model.modelType")}</div>
+        ),
+        cell: ({ row }) => (
+          <div className="font-medium">
+            {/* @ts-expect-error 动态翻译键 */}
+            {t(`modeType.${row.original.type}`)}
+          </div>
+        ),
+      },
+    ];
+
+    // Sets column - only visible to admins
+    if (isAdmin) {
+      baseColumns.push({
+        accessorKey: "sets",
       header: () => (
         <div className="font-medium py-3.5">{t("model.accessibleSets")}</div>
       ),
@@ -170,9 +178,13 @@ export function ModelTable() {
           </div>
         );
       },
-    },
-    {
-      accessorKey: "plugin",
+      });
+    }
+
+    // Plugin column - only visible to admins
+    if (isAdmin) {
+      baseColumns.push({
+        accessorKey: "plugin",
       header: () => (
         <div className="font-medium py-3.5">{t("model.pluginInfo")}</div>
       ),
@@ -226,8 +238,11 @@ export function ModelTable() {
           </div>
         );
       },
-    },
-    {
+      });
+    }
+
+    // Price column - visible to all users
+    baseColumns.push({
       accessorKey: "price",
       header: () => (
         <div className="font-medium py-3.5">{t("model.price")}</div>
@@ -259,18 +274,10 @@ export function ModelTable() {
           </div>
         );
       },
-    },
-    // {
-    //     accessorKey: 'owner',
-    //     header: () => <div className="font-medium py-3.5">{t("model.owner")}</div>,
-    //     cell: ({ row }) => <div>{row.original.owner}</div>,
-    // },
-    // {
-    //     accessorKey: 'rpm',
-    //     header: () => <div className="font-medium py-3.5">{t("model.rpm")}</div>,
-    //     cell: ({ row }) => <div>{row.original.rpm}</div>,
-    // },
-    {
+    });
+
+    // Actions column - visible to all users
+    baseColumns.push({
       id: "actions",
       cell: ({ row }) => (
         <DropdownMenu>
@@ -284,21 +291,27 @@ export function ModelTable() {
               <FileText className="mr-2 h-4 w-4" />
               {t("model.apiDetails")}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => openUpdateDialog(row.original)}>
-              <Pencil className="mr-2 h-4 w-4" />
-              {t("model.edit")}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => openDeleteDialog(row.original.model)}
-            >
-              <Trash2 className="mr-2 h-4 w-4 text-red-600 dark:text-red-500" />
-              {t("model.delete")}
-            </DropdownMenuItem>
+            {isAdmin && (
+              <>
+                <DropdownMenuItem onClick={() => openUpdateDialog(row.original)}>
+                  <Pencil className="mr-2 h-4 w-4" />
+                  {t("model.edit")}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => openDeleteDialog(row.original.model)}
+                >
+                  <Trash2 className="mr-2 h-4 w-4 text-red-600 dark:text-red-500" />
+                  {t("model.delete")}
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       ),
-    },
-  ];
+    });
+
+    return baseColumns;
+  }, [isAdmin, t, modelSets, isLoadingModelSets, isLoadingTypeMetas, channelTypeMetas]);
 
   // Initialize table
   const table = useReactTable({
@@ -379,16 +392,18 @@ export function ModelTable() {
                 {t("model.refresh")}
               </Button>
             </AnimatedButton>
-            <AnimatedButton>
-              <Button
-                size="sm"
-                onClick={openCreateDialog}
-                className="flex items-center gap-1"
-              >
-                <Plus className="h-4 w-4" />
-                {t("model.add")}
-              </Button>
-            </AnimatedButton>
+            {isAdmin && (
+              <AnimatedButton>
+                <Button
+                  size="sm"
+                  onClick={openCreateDialog}
+                  className="flex items-center gap-1"
+                >
+                  <Plus className="h-4 w-4" />
+                  {t("model.add")}
+                </Button>
+              </AnimatedButton>
+            )}
           </div>
         </div>
 

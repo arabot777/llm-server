@@ -53,7 +53,7 @@ type Log struct {
 	RetryAt          time.Time       `                                                                      json:"retry_at,omitempty"`
 	TTFBMilliseconds ZeroNullInt64   `                                                                      json:"ttfb_milliseconds,omitempty"`
 	CreatedAt        time.Time       `gorm:"autoCreateTime;index"                                           json:"created_at"`
-	TokenName        string          `gorm:"size:32"                                                        json:"token_name,omitempty"`
+	TokenName        string          `gorm:"size:64"                                                        json:"token_name,omitempty"`
 	Endpoint         EmptyNullString `gorm:"size:64"                                                        json:"endpoint,omitempty"`
 	Content          EmptyNullString `gorm:"type:text"                                                      json:"content,omitempty"`
 	GroupID          string          `gorm:"size:64"                                                        json:"group,omitempty"`
@@ -73,10 +73,10 @@ type Log struct {
 	User     EmptyNullString   `gorm:"type:text"                                                      json:"user,omitempty"`
 	Metadata map[string]string `gorm:"serializer:fastjson;type:text"                                  json:"metadata,omitempty"`
 	// Upstream timing fields for tracking third-party API latency
-	UpstreamRequestAt        time.Time     `                                                                      json:"upstream_request_at,omitempty"`
-	UpstreamResponseAt       time.Time     `                                                                      json:"upstream_response_at,omitempty"`
-	InternalProcessTime      ZeroNullInt64 `                                                                      json:"internal_process_time_ms,omitempty"`
-	UpstreamResponseTime     ZeroNullInt64 `                                                                      json:"upstream_response_time_ms,omitempty"`
+	UpstreamRequestAt    time.Time     `                                                                      json:"upstream_request_at,omitempty"`
+	UpstreamResponseAt   time.Time     `                                                                      json:"upstream_response_at,omitempty"`
+	InternalProcessTime  ZeroNullInt64 `                                                                      json:"internal_process_time_ms,omitempty"`
+	UpstreamResponseTime ZeroNullInt64 `                                                                      json:"upstream_response_time_ms,omitempty"`
 }
 
 func CreateLogIndexes(db *gorm.DB) error {

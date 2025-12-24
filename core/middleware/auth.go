@@ -38,12 +38,6 @@ func ErrorResponse(c *gin.Context, code int, message string) {
 }
 
 func AdminAuth(c *gin.Context) {
-	if config.AdminKey == "" {
-		ErrorResponse(c, http.StatusUnauthorized, "unauthorized, admin key is not set")
-		c.Abort()
-		return
-	}
-
 	accessToken := c.Request.Header.Get("Authorization")
 	if accessToken == "" {
 		accessToken = c.Query("key")
@@ -52,20 +46,54 @@ func AdminAuth(c *gin.Context) {
 	accessToken = strings.TrimPrefix(accessToken, "Bearer ")
 	accessToken = strings.TrimPrefix(accessToken, "sk-")
 
-	if accessToken != config.AdminKey {
+	if accessToken == "" {
 		ErrorResponse(c, http.StatusUnauthorized, "unauthorized, no access token provided")
 		c.Abort()
 		return
 	}
 
-	c.Set(Token, &model.TokenCache{
-		Key: config.AdminKey,
-	})
+	var userType string
+	var tokenCache *model.TokenCache
 
-	group := c.Param("group")
-	if group != "" {
-		log := common.GetLogger(c)
-		log.Data["gid"] = group
+	// Check if admin key
+	if config.AdminKey != "" && accessToken == config.AdminKey {
+		userType = "admin"
+		tokenCache = &model.TokenCache{
+			Key: config.AdminKey,
+		}
+		c.Set(Token, *tokenCache)  // Store value type, not pointer
+		c.Set("user_type", userType)
+
+		group := c.Param("group")
+		if group != "" {
+			log := common.GetLogger(c)
+			log.Data["gid"] = group
+		}
+
+		c.Next()
+		return
+	}
+
+	// Try to validate as regular user token
+	tc, err := model.GetAndValidateToken(accessToken)
+	if err != nil {
+		ErrorResponse(c, http.StatusUnauthorized, err.Error())
+		c.Abort()
+		return
+	}
+
+	// Get user type from token
+	userType = tc.UserType
+	if userType == "" {
+		userType = "regular" // default for old records
+	}
+
+	c.Set(Token, *tc)  // Store value type, not pointer
+	c.Set("user_type", userType)
+
+	log := common.GetLogger(c)
+	if tc.Group != "" {
+		log.Data["gid"] = tc.Group
 	}
 
 	c.Next()

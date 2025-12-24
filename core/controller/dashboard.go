@@ -264,6 +264,14 @@ func GetGroupDashboard(c *gin.Context) {
 	tokenName := c.Query("token_name")
 	modelName := c.Query("model")
 
+	// If token_name looks like a full key (longer than 32 chars),
+	// look up the actual token name from database to match with truncated summary entries
+	if len(tokenName) > 32 {
+		if token, err := model.GetTokenByKey(tokenName); err == nil && token != nil {
+			tokenName = string(token.Name)
+		}
+	}
+
 	dashboards, err := model.GetGroupDashboardData(
 		group,
 		start,
@@ -475,6 +483,14 @@ func GetGroupTimeSeriesModelData(c *gin.Context) {
 	modelName := c.Query("model")
 	startTime, endTime := utils.ParseTimeRange(c, -1)
 	timezoneLocation, _ := time.LoadLocation(c.DefaultQuery("timezone", "Local"))
+
+	// If token_name looks like a full key (longer than 32 chars),
+	// look up the actual token name from database to match with truncated summary entries
+	if len(tokenName) > 32 {
+		if token, err := model.GetTokenByKey(tokenName); err == nil && token != nil {
+			tokenName = string(token.Name)
+		}
+	}
 
 	models, err := model.GetGroupTimeSeriesModelData(
 		group,

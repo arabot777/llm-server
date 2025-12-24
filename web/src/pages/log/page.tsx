@@ -5,8 +5,12 @@ import { LogFilters } from '@/feature/log/components/LogFilters'
 import { LogTable } from '@/feature/log/components/LogTable'
 import { AdvancedErrorDisplay } from '@/components/common/error/errorDisplay'
 import type { LogFilters as LogFiltersType } from '@/types/log'
+import { useAuthStore } from '@/store/auth'
 
 export default function LogPage() {
+    const userType = useAuthStore((s) => s.userType)
+    const token = useAuthStore((s) => s.token)
+    const isAdmin = userType === 'admin'
 
     // 初始化过滤器状态
     const getDefaultFilters = (): LogFiltersType => {
@@ -15,6 +19,8 @@ export default function LogPage() {
         sevenDaysAgo.setDate(today.getDate() - 7)
 
         return {
+            // For regular users, use their token as keyName by default
+            keyName: isAdmin ? undefined : token || undefined,
             code_type: 'all',
             page: 1,
             per_page: 10,

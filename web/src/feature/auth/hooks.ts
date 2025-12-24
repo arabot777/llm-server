@@ -16,25 +16,26 @@ export function useLoginMutation() {
 
     return useMutation({
         mutationFn: async (token: string) => {
-            const result = await authApi.getChannelTypeMetas(token)
+            // Call new login endpoint
+            const result = await authApi.login(token)
             return { token, result }
         },
-        onSuccess: ({ token }) => {
-            // login success, save token
-            login(token)
-            toast.success('login success')
+        onSuccess: ({ token, result }) => {
+            // login success, save token with user type and balance
+            login(token, result.user_type, result.balance)
+            toast.success('Login successful')
             // redirect to previous page or home page
             navigate(from, { replace: true })
         },
         onError: (error: unknown) => {
             if (error instanceof ApiError) {
                 if (error.code === 401) {
-                    toast.error('Token无效，请重新输入')
+                    toast.error('Invalid token, please try again')
                 } else {
-                    toast.error(`API错误 (${error.code}): ${error.message}`)
+                    toast.error(`API error (${error.code}): ${error.message}`)
                 }
             } else {
-                toast.error('登录失败，请重试')
+                toast.error('Login failed, please retry')
             }
         }
     })

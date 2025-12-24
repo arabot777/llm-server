@@ -8,17 +8,23 @@ import { MetricsCards } from '@/feature/monitor/components/MetricsCards'
 import { MonitorCharts } from '@/feature/monitor/components/MonitorCharts'
 import { AdvancedErrorDisplay } from '@/components/common/error/errorDisplay'
 import { DashboardFilters } from '@/types/dashboard'
+import { useAuthStore } from '@/store/auth'
 
 export default function MonitorPage() {
     const { t } = useTranslation()
-    
+    const userType = useAuthStore((s) => s.userType)
+    const token = useAuthStore((s) => s.token)
+    const isAdmin = userType === 'admin'
+
     // 计算默认日期范围（当前时间往前7天）
     const getDefaultFilters = (): DashboardFilters => {
         const today = new Date()
         const sevenDaysAgo = new Date()
         sevenDaysAgo.setDate(today.getDate() - 7)
-        
+
         return {
+            // For regular users, use their token as keyName by default
+            keyName: isAdmin ? undefined : token || undefined,
             timespan: 'day',
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             start_timestamp: Math.floor(sevenDaysAgo.getTime() / 1000),

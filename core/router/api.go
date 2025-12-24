@@ -18,6 +18,12 @@ func SetAPIRouter(router *gin.Engine) {
 	healthRouter := api.Group("")
 	healthRouter.GET("/status", controller.GetStatus)
 
+	// Public auth routes (no authentication required)
+	authRouter := api.Group("/auth")
+	{
+		authRouter.POST("/login", controller.Login)
+	}
+
 	apiRouter := api.Group("")
 	apiRouter.Use(middleware.AdminAuth)
 	{
@@ -46,7 +52,9 @@ func SetAPIRouter(router *gin.Engine) {
 			dashboardV2Route.GET("/:group", controller.GetGroupTimeSeriesModelData)
 		}
 
+		// Groups - admin only
 		groupsRoute := apiRouter.Group("/groups")
+		groupsRoute.Use(middleware.RequireAdmin)
 		{
 			groupsRoute.GET("/", controller.GetGroups)
 			groupsRoute.GET("/search", controller.SearchGroups)
@@ -56,6 +64,7 @@ func SetAPIRouter(router *gin.Engine) {
 		}
 
 		groupRoute := apiRouter.Group("/group")
+		groupRoute.Use(middleware.RequireAdmin)
 		{
 			groupRoute.POST("/:group", controller.CreateGroup)
 			groupRoute.PUT("/:group", controller.UpdateGroup)
@@ -98,11 +107,14 @@ func SetAPIRouter(router *gin.Engine) {
 			optionRoute.POST("/batch", controller.UpdateOptions)
 		}
 
+		// Channels - admin only
 		channelsRoute := apiRouter.Group("/channels")
+		channelsRoute.GET("/type_metas", controller.ChannelTypeMetas)
+		channelsRoute.Use(middleware.RequireAdmin)
 		{
 			channelsRoute.GET("/", controller.GetChannels)
 			channelsRoute.GET("/all", controller.GetAllChannels)
-			channelsRoute.GET("/type_metas", controller.ChannelTypeMetas)
+			// channelsRoute.GET("/type_metas", controller.ChannelTypeMetas)
 			channelsRoute.POST("/", controller.AddChannels)
 			channelsRoute.GET("/search", controller.SearchChannels)
 			channelsRoute.GET("/update_balance", controller.UpdateAllChannelsBalance)
@@ -116,6 +128,7 @@ func SetAPIRouter(router *gin.Engine) {
 		}
 
 		channelRoute := apiRouter.Group("/channel")
+		channelRoute.Use(middleware.RequireAdmin)
 		{
 			channelRoute.GET("/:id", controller.GetChannel)
 			channelRoute.POST("/", controller.AddChannel)
@@ -127,62 +140,101 @@ func SetAPIRouter(router *gin.Engine) {
 			channelRoute.GET("/:id/update_balance", controller.UpdateChannelBalance)
 		}
 
+		// Tokens - read for all (filtered by group), write for admin only
 		tokensRoute := apiRouter.Group("/tokens")
 		{
+			// Read operations - all users (will be filtered by controller)
 			tokensRoute.GET("/", controller.GetTokens)
 			tokensRoute.GET("/:id", controller.GetToken)
-			tokensRoute.PUT("/:id", controller.UpdateToken)
-			tokensRoute.POST("/:id/status", controller.UpdateTokenStatus)
-			tokensRoute.POST("/:id/name", controller.UpdateTokenName)
-			tokensRoute.DELETE("/:id", controller.DeleteToken)
 			tokensRoute.GET("/search", controller.SearchTokens)
-			tokensRoute.POST("/batch_delete", controller.DeleteTokens)
+
+			// Write operations - admin only
+			tokensRouteAdmin := tokensRoute.Group("")
+			tokensRouteAdmin.Use(middleware.RequireAdmin)
+			{
+				tokensRouteAdmin.PUT("/:id", controller.UpdateToken)
+				tokensRouteAdmin.POST("/:id/status", controller.UpdateTokenStatus)
+				tokensRouteAdmin.POST("/:id/name", controller.UpdateTokenName)
+				tokensRouteAdmin.DELETE("/:id", controller.DeleteToken)
+				tokensRouteAdmin.POST("/batch_delete", controller.DeleteTokens)
+			}
 		}
 
 		tokenRoute := apiRouter.Group("/token")
 		{
+			// Read operations - all users
 			tokenRoute.GET("/:group/search", controller.SearchGroupTokens)
-			tokenRoute.POST("/:group/batch_delete", controller.DeleteGroupTokens)
 			tokenRoute.GET("/:group", controller.GetGroupTokens)
 			tokenRoute.GET("/:group/:id", controller.GetGroupToken)
-			tokenRoute.POST("/:group", controller.AddGroupToken)
-			tokenRoute.PUT("/:group/:id", controller.UpdateGroupToken)
-			tokenRoute.POST("/:group/:id/status", controller.UpdateGroupTokenStatus)
-			tokenRoute.POST("/:group/:id/name", controller.UpdateGroupTokenName)
-			tokenRoute.DELETE("/:group/:id", controller.DeleteGroupToken)
+
+			// Write operations - admin only
+			tokenRouteAdmin := tokenRoute.Group("")
+			tokenRouteAdmin.Use(middleware.RequireAdmin)
+			{
+				tokenRouteAdmin.POST("/:group/batch_delete", controller.DeleteGroupTokens)
+				tokenRouteAdmin.POST("/:group", controller.AddGroupToken)
+				tokenRouteAdmin.PUT("/:group/:id", controller.UpdateGroupToken)
+				tokenRouteAdmin.POST("/:group/:id/status", controller.UpdateGroupTokenStatus)
+				tokenRouteAdmin.POST("/:group/:id/name", controller.UpdateGroupTokenName)
+				tokenRouteAdmin.DELETE("/:group/:id", controller.DeleteGroupToken)
+			}
 		}
 
+		// Logs - auto-filtered by user group
 		logsRoute := apiRouter.Group("/logs")
+		logsRoute.Use(middleware.FilterByUserGroup)
 		{
 			logsRoute.GET("/", controller.GetLogs)
-			logsRoute.DELETE("/", controller.DeleteHistoryLogs)
 			logsRoute.GET("/search", controller.SearchLogs)
 			logsRoute.GET("/consume_error", controller.SearchConsumeError)
 			logsRoute.GET("/detail/:log_id", controller.GetLogDetail)
+
+			// Delete - admin only
+			logsRouteAdmin := logsRoute.Group("")
+			logsRouteAdmin.Use(middleware.RequireAdmin)
+			{
+				logsRouteAdmin.DELETE("/", controller.DeleteHistoryLogs)
+			}
 		}
 
 		logRoute := apiRouter.Group("/log")
+		logRoute.Use(middleware.FilterByUserGroup)
 		{
 			logRoute.GET("/:group", controller.GetGroupLogs)
 			logRoute.GET("/:group/search", controller.SearchGroupLogs)
 			logRoute.GET("/:group/detail/:log_id", controller.GetGroupLogDetail)
 		}
 
+		// Model configs - read for all, write for admin only
 		modelConfigsRoute := apiRouter.Group("/model_configs")
 		{
+			// Read operations - all users
 			modelConfigsRoute.GET("/", controller.GetModelConfigs)
 			modelConfigsRoute.GET("/search", controller.SearchModelConfigs)
 			modelConfigsRoute.GET("/all", controller.GetAllModelConfigs)
 			modelConfigsRoute.POST("/contains", controller.GetModelConfigsByModelsContains)
-			modelConfigsRoute.POST("/", controller.SaveModelConfigs)
-			modelConfigsRoute.POST("/batch_delete", controller.DeleteModelConfigs)
+
+			// Write operations - admin only
+			modelConfigsRouteAdmin := modelConfigsRoute.Group("")
+			modelConfigsRouteAdmin.Use(middleware.RequireAdmin)
+			{
+				modelConfigsRouteAdmin.POST("/", controller.SaveModelConfigs)
+				modelConfigsRouteAdmin.POST("/batch_delete", controller.DeleteModelConfigs)
+			}
 		}
 
 		modelConfigRoute := apiRouter.Group("/model_config")
 		{
+			// Read operations - all users
 			modelConfigRoute.GET("/*model", controller.GetModelConfig)
-			modelConfigRoute.POST("/*model", controller.SaveModelConfig)
-			modelConfigRoute.DELETE("/*model", controller.DeleteModelConfig)
+
+			// Write operations - admin only
+			modelConfigRouteAdmin := modelConfigRoute.Group("")
+			modelConfigRouteAdmin.Use(middleware.RequireAdmin)
+			{
+				modelConfigRouteAdmin.POST("/*model", controller.SaveModelConfig)
+				modelConfigRouteAdmin.DELETE("/*model", controller.DeleteModelConfig)
+			}
 		}
 
 		monitorRoute := apiRouter.Group("/monitor")

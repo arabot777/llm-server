@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/tooltip'
 import { DateRangePicker } from '@/components/common/DateRangePicker'
 import type { LogFilters } from '@/types/log'
+import { useAuthStore } from '@/store/auth'
 
 interface LogFiltersProps {
     onFiltersChange: (filters: LogFilters) => void
@@ -28,6 +29,9 @@ interface LogFiltersProps {
 
 export function LogFilters({ onFiltersChange, loading = false }: LogFiltersProps) {
     const { t } = useTranslation()
+    const userType = useAuthStore((s) => s.userType)
+    const token = useAuthStore((s) => s.token)
+    const isAdmin = userType === 'admin'
 
     // 计算默认日期范围（当前时间往前7天）
     const getDefaultDateRange = (): DateRange => {
@@ -51,7 +55,8 @@ export function LogFilters({ onFiltersChange, loading = false }: LogFiltersProps
         e.preventDefault()
 
         const filters: LogFilters = {
-            keyName: keyName.trim() || undefined,
+            // For regular users, use their token as keyName
+            keyName: isAdmin ? (keyName.trim() || undefined) : token || undefined,
             model: model.trim() || undefined,
             code_type: codeType,
             page: 1, // 重置到第一页
@@ -81,6 +86,8 @@ export function LogFilters({ onFiltersChange, loading = false }: LogFiltersProps
         setCodeType('all')
 
         const filters: LogFilters = {
+            // For regular users, use their token as keyName
+            keyName: isAdmin ? undefined : token || undefined,
             code_type: 'all',
             page: 1,
             per_page: 10,
@@ -94,25 +101,27 @@ export function LogFilters({ onFiltersChange, loading = false }: LogFiltersProps
         <div className="bg-card border border-border rounded-lg p-4 shadow-none">
             <form onSubmit={handleSubmit}>
                 <div className="flex items-center gap-4">
-                    {/* Key Name 过滤器 */}
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <div className="flex-1 min-w-0">
-                                    <Input
-                                        placeholder={t('log.filters.keyPlaceholder')}
-                                        value={keyName}
-                                        onChange={(e) => setKeyName(e.target.value)}
-                                        disabled={loading}
-                                        className="h-10"
-                                    />
-                                </div>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>{t('log.filters.keyPlaceholder')}</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                    {/* Key Name 过滤器 - 仅管理员可见 */}
+                    {isAdmin && (
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="flex-1 min-w-0">
+                                        <Input
+                                            placeholder={t('log.filters.keyPlaceholder')}
+                                            value={keyName}
+                                            onChange={(e) => setKeyName(e.target.value)}
+                                            disabled={loading}
+                                            className="h-10"
+                                        />
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>{t('log.filters.keyPlaceholder')}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    )}
 
                     {/* Model 过滤器 */}
                     <TooltipProvider>

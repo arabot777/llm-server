@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/wavespeed/llm-server/core/common"
 	"github.com/wavespeed/llm-server/core/common/config"
 	"github.com/wavespeed/llm-server/core/common/conv"
-	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
@@ -33,8 +33,8 @@ const (
 type Token struct {
 	CreatedAt time.Time       `json:"created_at"`
 	Group     *Group          `json:"-"          gorm:"foreignKey:GroupID"`
-	Key       string          `json:"key"        gorm:"type:char(48);uniqueIndex"`
-	Name      EmptyNullString `json:"name"       gorm:"size:32;index;uniqueIndex:idx_group_name;not null"`
+	Key       string          `json:"key"        gorm:"size:64;uniqueIndex"`
+	Name      EmptyNullString `json:"name"       gorm:"size:64;index;uniqueIndex:idx_group_name;not null"`
 	GroupID   string          `json:"group"      gorm:"size:64;index;uniqueIndex:idx_group_name"`
 	Subnets   []string        `json:"subnets"    gorm:"serializer:fastjson;type:text"`
 	Models    []string        `json:"models"     gorm:"serializer:fastjson;type:text"`
@@ -49,17 +49,22 @@ type Token struct {
 	PeriodType             EmptyNullString `json:"period_type"               gorm:"size:20"` // daily, weekly, monthly, default is monthly
 	PeriodLastUpdateTime   time.Time       `json:"period_last_update_time"`                  // Last time period was reset
 	PeriodLastUpdateAmount float64         `json:"period_last_update_amount"`                // Total usage at last period reset
+
+	// WaveSpeed integration fields
+	UserType        string    `json:"user_type"         gorm:"size:20;default:'regular'"` // admin or regular
+	BalanceLastSync time.Time `json:"balance_last_sync" gorm:"index"`
+	IsWaveSpeedUser bool      `json:"is_wavespeed_user" gorm:"default:false"`
 }
 
 func (t *Token) BeforeCreate(_ *gorm.DB) error {
-	if t.Key == "" || len(t.Key) != 48 {
+	if t.Key == "" {
 		t.Key = generateKey()
 	}
 	return nil
 }
 
 func (t *Token) BeforeSave(_ *gorm.DB) error {
-	if len(t.Name) > 32 {
+	if len(t.Name) > 64 {
 		return errors.New("token name is too long")
 	}
 	return nil
@@ -1078,4 +1083,21 @@ func UpdateGroupTokenName(group string, id int, name string) (err error) {
 	}
 
 	return HandleUpdateResult(result, ErrTokenNotFound)
+}
+
+// GetAllWaveSpeedTokens returns all tokens that are WaveSpeed users
+func GetAllWaveSpeedTokens() ([]*Token, error) {
+	var tokens []*Token
+	err := DB.Where("is_wavespeed_user = ?", true).Find(&tokens).Error
+	return tokens, err
+}
+
+// UpdateTokenBalanceAndSync updates token balance and last sync time
+func UpdateTokenBalanceAndSync(id int, balance float64) error {
+	return DB.Model(&Token{}).
+		Where("id = ?", id).
+		Updates(map[string]interface{}{
+			"quota":             balance,
+			"balance_last_sync": time.Now(),
+		}).Error
 }

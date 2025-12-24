@@ -9,16 +9,6 @@ export function RootLayout() {
   return (
     <div className="flex h-screen bg-background">
       <Sidebar
-        displayConfig={{
-          monitor: true,
-          key: true,
-          channel: true,
-          model: true,
-          playground: true,
-          log: true,
-          doc: true,
-          github: true,
-        }}
         collapsed={collapsed}
         onToggle={() => setCollapsed(!collapsed)}
       />

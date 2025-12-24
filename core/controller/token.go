@@ -126,6 +126,12 @@ func GetTokens(c *gin.Context) {
 	order := c.Query("order")
 	status, _ := strconv.Atoi(c.Query("status"))
 
+	// Regular users can only view their own tokens
+	if !middleware.IsAdmin(c) {
+		token := middleware.GetToken(c)
+		group = token.Group
+	}
+
 	tokens, total, err := model.GetTokens(group, page, perPage, order, status)
 	if err != nil {
 		middleware.ErrorResponse(c, http.StatusInternalServerError, err.Error())
@@ -200,6 +206,12 @@ func SearchTokens(c *gin.Context) {
 	key := c.Query("key")
 	status, _ := strconv.Atoi(c.Query("status"))
 	group := c.Query("group")
+
+	// Regular users can only search their own tokens
+	if !middleware.IsAdmin(c) {
+		token := middleware.GetToken(c)
+		group = token.Group
+	}
 
 	tokens, total, err := model.SearchTokens(
 		group,

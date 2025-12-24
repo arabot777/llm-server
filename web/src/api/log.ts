@@ -12,6 +12,9 @@ export const logApi = {
         if (filters?.per_page) {
             params.append('per_page', filters.per_page.toString())
         }
+        if (filters?.keyName) {
+            params.append('token_name', filters.keyName)
+        }
         if (filters?.model) {
             params.append('model_name', filters.model)
         }

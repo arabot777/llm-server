@@ -5,7 +5,9 @@ export interface AuthState {
     token: string | null
     isAuthenticated: boolean
     isAuthenticating: boolean
-    login: (token: string) => void
+    userType: 'admin' | 'regular' | null
+    balance: number | null
+    login: (token: string, userType: 'admin' | 'regular', balance?: number) => void
     logout: () => void
 }
 
@@ -15,11 +17,15 @@ export const useAuthStore = create<AuthState>()(
             token: null,
             isAuthenticated: false,
             isAuthenticating: false,
+            userType: null,
+            balance: null,
 
-            login: (token: string) => {
+            login: (token: string, userType: 'admin' | 'regular', balance?: number) => {
                 set({
                     token,
                     isAuthenticated: true,
+                    userType,
+                    balance: balance ?? null,
                 })
             },
 
@@ -27,6 +33,8 @@ export const useAuthStore = create<AuthState>()(
                 set({
                     token: null,
                     isAuthenticated: false,
+                    userType: null,
+                    balance: null,
                 })
             },
 
@@ -42,6 +50,8 @@ export const useAuthStore = create<AuthState>()(
             partialize: (state) => ({
                 token: state.token,
                 isAuthenticated: state.isAuthenticated,
+                userType: state.userType,
+                balance: state.balance,
             }),
         }
     )

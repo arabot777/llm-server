@@ -123,8 +123,30 @@ export function Sidebar({ displayConfig = {}, collapsed = false, onToggle }: Sid
     const navigate = useNavigate()
     const { t } = useTranslation()
     const logout = useAuthStore((s) => s.logout)
+    const userType = useAuthStore((s) => s.userType)
 
     const currentFirstLevelPath = "/" + location.pathname.split("/")[1]
+
+    // Create default display config based on user type
+    const isAdmin = userType === 'admin'
+    const defaultDisplayConfig: SidebarDisplayConfig = {
+        playground: true,
+        monitor: true,
+        key: true,
+        group: isAdmin,       // Only admin can see groups
+        channel: isAdmin,     // Only admin can see channels
+        model: true,
+        mcp: isAdmin,         // Only admin can see MCP
+        log: true,
+        doc: isAdmin,         // Only admin can see documentation
+        github: isAdmin,      // Only admin can see GitHub
+    }
+
+    // Merge default config with provided config
+    const finalDisplayConfig = {
+        ...defaultDisplayConfig,
+        ...displayConfig,
+    }
 
     const sidebarItems = createSidebarConfig(t).map((item) => {
         // Determine which config property based on path name
@@ -139,7 +161,7 @@ export function Sidebar({ displayConfig = {}, collapsed = false, onToggle }: Sid
         if (item.href === "https://sealos.run/docs/guides/ai-proxy") configKey = "doc"
         if (item.href === "https://github.com/labring/aiproxy") configKey = "github"
 
-        const shouldDisplay = displayConfig[configKey] !== undefined ? displayConfig[configKey] : item.display
+        const shouldDisplay = finalDisplayConfig[configKey] !== undefined ? finalDisplayConfig[configKey] : item.display
 
         return {
             ...item,

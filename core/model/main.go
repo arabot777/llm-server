@@ -170,6 +170,11 @@ func migrateDB() error {
 		return err
 	}
 
+	// Run manual migration for WaveSpeed fields
+	if err := MigrateWaveSpeedFields(DB); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -27,6 +27,12 @@ func parseCommonParams(c *gin.Context) (params struct {
 },
 ) {
 	params.group = c.Query("group")
+
+	// Regular users: force filter to their own group
+	if forcedGroup, exists := c.Get("forced_group"); exists {
+		params.group = forcedGroup.(string)
+	}
+
 	params.tokenName = c.Query("token_name")
 	params.modelName = c.Query("model_name")
 	params.channelID, _ = strconv.Atoi(c.Query("channel"))

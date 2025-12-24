@@ -28,9 +28,12 @@ import { AnimatedButton } from '@/components/ui/animation/components/animated-bu
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { useAuthStore } from '@/store/auth'
 
 export function TokenTable() {
     const { t } = useTranslation()
+    const userType = useAuthStore((s) => s.userType)
+    const isAdmin = userType === 'admin'
 
     // 状态管理
     const [tokenDialogOpen, setTokenDialogOpen] = useState(false)
@@ -157,13 +160,20 @@ export function TokenTable() {
     }
 
     // 表格列定义
-    const columns: ColumnDef<Token>[] = [
-        {
-            accessorKey: 'name',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.name")}</div>,
-            cell: ({ row }) => <div className="font-medium">{row.original.name}</div>,
-        },
-        {
+    const columns: ColumnDef<Token>[] = useMemo(() => {
+        const baseColumns: ColumnDef<Token>[] = []
+
+        // 名称列 - 仅管理员可见
+        if (isAdmin) {
+            baseColumns.push({
+                accessorKey: 'name',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.name")}</div>,
+                cell: ({ row }) => <div className="font-medium">{row.original.name}</div>,
+            })
+        }
+
+        // Key 列 - 所有用户可见
+        baseColumns.push({
             accessorKey: 'key',
             header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.key")}</div>,
             cell: ({ row }) => (
@@ -179,109 +189,119 @@ export function TokenTable() {
                     </Button>
                 </div>
             ),
-        },
-        {
-            accessorKey: 'accessed_at',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.lastUsed")}</div>,
-            cell: ({ row }) => <div>{formatDateTime(row.original.accessed_at)}</div>,
-        },
-        {
-            accessorKey: 'request_count',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.requestCount")}</div>,
-            cell: ({ row }) => <div>{row.original.request_count}</div>,
-        },
-        {
-            accessorKey: 'quota',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.quota")}</div>,
-            cell: ({ row }) => <div className="font-mono">¥{row.original.quota.toFixed(6)}</div>,
-        },
-        {
-            accessorKey: 'used_amount',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.usedAmount")}</div>,
-            cell: ({ row }) => <div className="font-mono">¥{row.original.used_amount.toFixed(6)}</div>,
-        },
-        {
-            accessorKey: 'available',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.available")}</div>,
-            cell: ({ row }) => {
-                const available = row.original.quota - row.original.used_amount
-                return <div className={cn("font-mono", available < 0 ? "text-destructive" : "text-green-600 dark:text-green-400")}>
-                    ¥{available.toFixed(6)}
-                </div>
+        })
+
+        // 其他列 - 所有用户可见
+        baseColumns.push(
+            {
+                accessorKey: 'accessed_at',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.lastUsed")}</div>,
+                cell: ({ row }) => <div>{formatDateTime(row.original.accessed_at)}</div>,
             },
-        },
-        {
-            accessorKey: 'status',
-            header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.status")}</div>,
-            cell: ({ row }) => (
-                <div>
-                    {row.original.status === 2 ? (
-                        <Badge variant="outline" className={cn(
-                            "text-white dark:text-white/90",
-                            "bg-destructive dark:bg-red-600/90"
-                        )}>
-                            {t("token.disabled")}
-                        </Badge>
-                    ) : (
-                        <Badge variant="outline" className={cn(
-                            "text-white dark:text-white/90",
-                            "bg-primary dark:bg-[#4A4DA0]"
-                        )}>
-                            {t("token.enabled")}
-                        </Badge>
-                    )}
-                </div>
-            ),
-        },
-        {
-            id: 'actions',
-            cell: ({ row }) => (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem
-                            onClick={() => copyToClipboard(row.original.key)}
-                        >
-                            <Copy className="mr-2 h-4 w-4" />
-                            {t("token.copyKey")}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={() => openEditDialog(row.original)}
-                        >
-                            <Edit className="mr-2 h-4 w-4 text-blue-600 dark:text-blue-500" />
-                            {t("token.editQuota")}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={() => handleStatusChange(row.original.id, row.original.status)}
-                            disabled={isStatusUpdating}
-                        >
-                            {row.original.status === 2 ? (
+            {
+                accessorKey: 'request_count',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.requestCount")}</div>,
+                cell: ({ row }) => <div>{row.original.request_count}</div>,
+            },
+            {
+                accessorKey: 'quota',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.quota")}</div>,
+                cell: ({ row }) => <div className="font-mono">¥{row.original.quota.toFixed(6)}</div>,
+            },
+            {
+                accessorKey: 'used_amount',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.usedAmount")}</div>,
+                cell: ({ row }) => <div className="font-mono">¥{row.original.used_amount.toFixed(6)}</div>,
+            },
+            {
+                accessorKey: 'available',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.available")}</div>,
+                cell: ({ row }) => {
+                    const available = row.original.quota - row.original.used_amount
+                    return <div className={cn("font-mono", available < 0 ? "text-destructive" : "text-green-600 dark:text-green-400")}>
+                        ¥{available.toFixed(6)}
+                    </div>
+                },
+            },
+            {
+                accessorKey: 'status',
+                header: () => <div className="font-medium py-3.5 whitespace-nowrap">{t("token.status")}</div>,
+                cell: ({ row }) => (
+                    <div>
+                        {row.original.status === 2 ? (
+                            <Badge variant="outline" className={cn(
+                                "text-white dark:text-white/90",
+                                "bg-destructive dark:bg-red-600/90"
+                            )}>
+                                {t("token.disabled")}
+                            </Badge>
+                        ) : (
+                            <Badge variant="outline" className={cn(
+                                "text-white dark:text-white/90",
+                                "bg-primary dark:bg-[#4A4DA0]"
+                            )}>
+                                {t("token.enabled")}
+                            </Badge>
+                        )}
+                    </div>
+                ),
+            },
+            {
+                id: 'actions',
+                cell: ({ row }) => (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                                onClick={() => copyToClipboard(row.original.key)}
+                            >
+                                <Copy className="mr-2 h-4 w-4" />
+                                {t("token.copyKey")}
+                            </DropdownMenuItem>
+                            {isAdmin && (
                                 <>
-                                    <Power className="mr-2 h-4 w-4 text-emerald-600 dark:text-emerald-500" />
-                                    {t("token.enable")}
-                                </>
-                            ) : (
-                                <>
-                                    <PowerOff className="mr-2 h-4 w-4 text-yellow-600 dark:text-yellow-500" />
-                                    {t("token.disable")}
+                                    <DropdownMenuItem
+                                        onClick={() => openEditDialog(row.original)}
+                                    >
+                                        <Edit className="mr-2 h-4 w-4 text-blue-600 dark:text-blue-500" />
+                                        {t("token.editQuota")}
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                        onClick={() => handleStatusChange(row.original.id, row.original.status)}
+                                        disabled={isStatusUpdating}
+                                    >
+                                        {row.original.status === 2 ? (
+                                            <>
+                                                <Power className="mr-2 h-4 w-4 text-emerald-600 dark:text-emerald-500" />
+                                                {t("token.enable")}
+                                            </>
+                                        ) : (
+                                            <>
+                                                <PowerOff className="mr-2 h-4 w-4 text-yellow-600 dark:text-yellow-500" />
+                                                {t("token.disable")}
+                                            </>
+                                        )}
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem
+                                        onClick={() => openDeleteDialog(row.original.id)}
+                                    >
+                                        <Trash2 className="mr-2 h-4 w-4 text-red-600 dark:text-red-500" />
+                                        {t("token.delete")}
+                                    </DropdownMenuItem>
                                 </>
                             )}
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={() => openDeleteDialog(row.original.id)}
-                        >
-                            <Trash2 className="mr-2 h-4 w-4 text-red-600 dark:text-red-500" />
-                            {t("token.delete")}
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            ),
-        },
-    ]
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                ),
+            }
+        )
+
+        return baseColumns
+    }, [isAdmin, t, isStatusUpdating])
 
     // 初始化表格
     const table = useReactTable({
@@ -312,16 +332,18 @@ export function TokenTable() {
                                 {t("token.refresh")}
                             </Button>
                         </AnimatedButton>
-                        <AnimatedButton>
-                            <Button
-                                size="sm"
-                                onClick={openCreateDialog}
-                                className="flex items-center gap-1 bg-primary hover:bg-primary/90 dark:bg-[#4A4DA0] dark:hover:bg-[#5155A5]"
-                            >
-                                <Plus className="h-3.5 w-3.5" />
-                                {t("token.add")}
-                            </Button>
-                        </AnimatedButton>
+                        {isAdmin && (
+                            <AnimatedButton>
+                                <Button
+                                    size="sm"
+                                    onClick={openCreateDialog}
+                                    className="flex items-center gap-1 bg-primary hover:bg-primary/90 dark:bg-[#4A4DA0] dark:hover:bg-[#5155A5]"
+                                >
+                                    <Plus className="h-3.5 w-3.5" />
+                                    {t("token.add")}
+                                </Button>
+                            </AnimatedButton>
+                        )}
                     </div>
                 </div>
 

@@ -77,6 +77,10 @@ type TokenCache struct {
 	PeriodLastUpdateTime   redisTime `json:"period_last_update_time"   redis:"plut"`
 	PeriodLastUpdateAmount float64   `json:"period_last_update_amount" redis:"plua"`
 
+	// WaveSpeed integration fields
+	UserType        string `json:"user_type"         redis:"ut"`
+	IsWaveSpeedUser bool   `json:"is_wavespeed_user" redis:"iwu"`
+
 	availableSets []string
 	modelsBySet   map[string][]string
 }
@@ -174,6 +178,10 @@ func (t *Token) ToTokenCache() *TokenCache {
 		PeriodType:             string(t.PeriodType),
 		PeriodLastUpdateTime:   redisTime(t.PeriodLastUpdateTime),
 		PeriodLastUpdateAmount: t.PeriodLastUpdateAmount,
+
+		// WaveSpeed integration fields
+		UserType:        t.UserType,
+		IsWaveSpeedUser: t.IsWaveSpeedUser,
 	}
 }
 
