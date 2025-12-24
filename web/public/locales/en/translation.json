@@ -112,7 +112,7 @@
   },
   "auth": {
     "login": {
-      "title": "Login to Admin Panel",
+      "title": "Login to Wavespeed LLM",
       "description": "Please enter your access token to login",
       "token": "Access Token",
       "tokenPlaceholder": "Enter your API Token",

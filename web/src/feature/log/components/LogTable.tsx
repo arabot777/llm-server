@@ -10,6 +10,12 @@ import { ChevronDown, ChevronRight, ChevronLeft, ChevronsLeft, ChevronsRight } f
 import { format } from 'date-fns'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { ExpandedLogContent } from './ExpandedLogContent'
 import type { LogRecord } from '@/types/log'
 
@@ -71,11 +77,26 @@ export function LogTable({
             }),
             columnHelper.accessor('token_name', {
                 header: t('log.keyName'),
-                cell: (info) => (
-                    <div className="font-medium text-foreground">
-                        {info.getValue() || '-'}
-                    </div>
-                ),
+                cell: (info) => {
+                    const tokenName = info.getValue()
+                    if (!tokenName || tokenName === '-') {
+                        return <div className="font-medium text-foreground">-</div>
+                    }
+                    return (
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="font-medium text-foreground truncate cursor-default">
+                                        {tokenName}
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p className="max-w-xs break-all">{tokenName}</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    )
+                },
                 size: 150,
             }),
             columnHelper.accessor('model', {

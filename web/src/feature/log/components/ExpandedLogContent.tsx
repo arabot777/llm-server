@@ -2,14 +2,23 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { format } from 'date-fns'
 import { Separator } from '@/components/ui/separator'
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { JsonViewer } from './JsonViewer'
 import { TimingBreakdown } from './TimingBreakdown'
 import { useLogDetail } from '@/feature/log/hooks'
+import { useAuthStore } from '@/store/auth'
 import type { LogRecord, LogRequestDetail } from '@/types/log'
 
 // 日志详情组件 - 处理每行的展开内容
 export const ExpandedLogContent = ({ log }: { log: LogRecord }) => {
     const { t } = useTranslation()
+    const userType = useAuthStore((s) => s.userType)
+    const isAdmin = userType === 'admin'
     const needsDetail = !!log.request_detail
     const [requestDetail, setRequestDetail] = useState<LogRequestDetail | null>(null)
     
@@ -55,9 +64,25 @@ export const ExpandedLogContent = ({ log }: { log: LogRecord }) => {
                     <div className="space-y-1 text-sm">
                         <div><span className="font-medium">{t('log.id')}:</span> {log.id}</div>
                         <div><span className="font-medium">{t('log.requestId')}:</span> {log.request_id}</div>
-                        <div><span className="font-medium">{t('log.keyName')}:</span> {log.token_name || '-'}</div>
+                        <div className="flex items-center gap-1">
+                            <span className="font-medium flex-shrink-0">{t('log.keyName')}:</span>
+                            {log.token_name && log.token_name !== '-' ? (
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <span className="truncate cursor-default">{log.token_name}</span>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p className="max-w-xs break-all">{log.token_name}</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            ) : (
+                                <span>-</span>
+                            )}
+                        </div>
                         <div><span className="font-medium">{t('log.model')}:</span> {log.model || '-'}</div>
-                        <div><span className="font-medium">{t('log.channel')}:</span> {log.channel}</div>
+                        {isAdmin && <div><span className="font-medium">{t('log.channel')}:</span> {log.channel}</div>}
                         <div><span className="font-medium">{t('log.user')}:</span> {log.user || '-'}</div>
                         <div><span className="font-medium">{t('log.ip')}:</span> {log.ip}</div>
                         <div><span className="font-medium">{t('log.endpoint')}:</span> {log.endpoint}</div>
@@ -89,11 +114,15 @@ export const ExpandedLogContent = ({ log }: { log: LogRecord }) => {
                         {log.retry_at && <div><span className="font-medium">{t('log.retry')}:</span> {format(new Date(log.retry_at), 'yyyy-MM-dd HH:mm:ss')}</div>}
                         <div><span className="font-medium">{t('log.retryTimes')}:</span> {log.retry_times || 0}</div>
                         <div className="pt-2 border-t">
-                            <TimingBreakdown
-                                ttfb={log.ttfb_milliseconds || 0}
-                                internalProcessTime={log.internal_process_time_ms}
-                                upstreamResponseTime={log.upstream_response_time_ms}
-                            />
+                            {isAdmin ? (
+                                <TimingBreakdown
+                                    ttfb={log.ttfb_milliseconds || 0}
+                                    internalProcessTime={log.internal_process_time_ms}
+                                    upstreamResponseTime={log.upstream_response_time_ms}
+                                />
+                            ) : (
+                                <div><span className="font-medium">TTFB:</span> {log.ttfb_milliseconds || 0}ms</div>
+                            )}
                         </div>
                     </div>
                 </div>

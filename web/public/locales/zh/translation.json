@@ -112,7 +112,7 @@
   },
   "auth": {
     "login": {
-      "title": "登录到管理面板",
+      "title": "登录到 Wavespeed LLM",
       "description": "请输入您的访问令牌以登录",
       "token": "访问令牌",
       "tokenPlaceholder": "请输入您的API Token",

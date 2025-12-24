@@ -48,6 +48,27 @@ func GetErrorWithBody(statusCode int, respBody []byte) (int, relaymodel.OpenAIEr
 		openAIError = errResponse.Error
 	}
 
+	// OpenRouter wraps upstream errors in metadata.raw, extract the real error message
+	var rawResponse map[string]any
+	if err := sonic.Unmarshal(respBody, &rawResponse); err == nil {
+		if errorMap, ok := rawResponse["error"].(map[string]any); ok {
+			if metadata, ok := errorMap["metadata"].(map[string]any); ok {
+				if rawStr, ok := metadata["raw"].(string); ok {
+					var realError relaymodel.OpenAIErrorResponse
+					if err := sonic.UnmarshalString(rawStr, &realError); err == nil {
+						if realError.Error.Message != "" {
+							// Only extract message and type, preserve the HTTP status code
+							openAIError.Message = realError.Error.Message
+							if realError.Error.Type != "" {
+								openAIError.Type = realError.Error.Type
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	if openAIError.Message == "" {
 		openAIError.Message = fmt.Sprintf("bad response status code %d", statusCode)
 	}
