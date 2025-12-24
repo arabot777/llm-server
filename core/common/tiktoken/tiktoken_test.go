@@ -3,7 +3,7 @@ package tiktoken_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/tiktoken"
+	"github.com/wavespeed/llm-server/core/common/tiktoken"
 	"github.com/smartystreets/goconvey/convey"
 )
 

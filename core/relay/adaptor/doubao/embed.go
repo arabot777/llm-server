@@ -2,7 +2,7 @@ package doubao
 
 import (
 	"github.com/bytedance/sonic/ast"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 )
 
 func patchEmbeddingsVisionInput(node *ast.Node) error {

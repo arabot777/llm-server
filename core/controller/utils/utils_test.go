@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/controller/utils"
+	"github.com/wavespeed/llm-server/core/controller/utils"
 	"github.com/smartystreets/goconvey/convey"
 )
 

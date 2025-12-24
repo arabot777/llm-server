@@ -1,9 +1,9 @@
 package geminiopenai
 
 import (
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/adaptor/gemini"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/gemini"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
 )
 
 type Adaptor struct {

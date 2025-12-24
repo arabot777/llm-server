@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )

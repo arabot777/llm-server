@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 // https://help.aliyun.com/zh/model-studio/error-code?userCode=okjhlpr5

@@ -3,8 +3,8 @@ package notify
 import (
 	"time"
 
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/trylock"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/trylock"
 	log "github.com/sirupsen/logrus"
 )
 

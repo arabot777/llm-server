@@ -6,11 +6,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/balance"
-	"github.com/labring/aiproxy/core/common/notify"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/meta"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/common/balance"
+	"github.com/wavespeed/llm-server/core/common/notify"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 )

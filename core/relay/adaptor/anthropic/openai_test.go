@@ -3,8 +3,8 @@ package anthropic_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/relay/adaptor/anthropic"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/anthropic"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 	"github.com/smartystreets/goconvey/convey"
 )
 

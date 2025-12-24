@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/labring/aiproxy/core/common"
+	"github.com/wavespeed/llm-server/core/common"
 	"github.com/smartystreets/goconvey/convey"
 )
 

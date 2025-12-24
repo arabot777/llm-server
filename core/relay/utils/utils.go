@@ -14,8 +14,8 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/bytedance/sonic/ast"
-	"github.com/labring/aiproxy/core/common"
-	model "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common"
+	model "github.com/wavespeed/llm-server/core/relay/model"
 	"github.com/patrickmn/go-cache"
 )
 

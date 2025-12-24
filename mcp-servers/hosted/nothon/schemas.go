@@ -1,7 +1,7 @@
 package notion
 
 import (
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

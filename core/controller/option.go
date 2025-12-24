@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 // GetOptions godoc

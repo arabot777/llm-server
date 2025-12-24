@@ -5,7 +5,7 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/bytedance/sonic/ast"
-	"github.com/labring/aiproxy/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/conv"
 )
 
 type Anthropic struct {

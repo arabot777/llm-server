@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/conv"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"

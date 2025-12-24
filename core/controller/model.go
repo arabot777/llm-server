@@ -8,10 +8,10 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptors"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptors"
 	log "github.com/sirupsen/logrus"
 )
 

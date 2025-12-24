@@ -11,14 +11,14 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime/types"
 	"github.com/bytedance/sonic"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/adaptor/anthropic"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
-	"github.com/labring/aiproxy/core/relay/meta"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
-	"github.com/labring/aiproxy/core/relay/render"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/anthropic"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/render"
 )
 
 func OpenaiHandler(meta *meta.Meta, c *gin.Context) (model.Usage, adaptor.Error) {

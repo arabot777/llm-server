@@ -1,8 +1,8 @@
 package minimax
 
 import (
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 )
 
 // https://www.minimaxi.com/document/guides/chat-model/V2?id=65e0736ab2845de20908e2dd

@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/labring/aiproxy/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/config"
 	log "github.com/sirupsen/logrus"
 )
 

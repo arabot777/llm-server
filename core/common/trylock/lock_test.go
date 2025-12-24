@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/trylock"
+	"github.com/wavespeed/llm-server/core/common/trylock"
 )
 
 func TestMemLock(t *testing.T) {

@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/utils"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/utils"
 )
 
 func GetVideoGenerationJobRequestUsage(c *gin.Context, _ model.ModelConfig) (model.Usage, error) {

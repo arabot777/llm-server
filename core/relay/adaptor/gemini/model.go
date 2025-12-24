@@ -1,7 +1,7 @@
 package gemini
 
 import (
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 type EmbeddingRequest struct {

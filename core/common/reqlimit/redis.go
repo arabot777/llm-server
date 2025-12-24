@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/labring/aiproxy/core/common"
+	"github.com/wavespeed/llm-server/core/common"
 	"github.com/redis/go-redis/v9"
 )
 

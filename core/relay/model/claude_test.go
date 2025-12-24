@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/model"
 	"github.com/smartystreets/goconvey/convey"
 )
 

@@ -11,12 +11,12 @@ import (
 	"github.com/bytedance/sonic"
 	"github.com/bytedance/sonic/ast"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/common/image"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/meta"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/common/image"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 func ConvertImagesRequest(

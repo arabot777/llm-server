@@ -12,10 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/meta"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 type STTMessage struct {

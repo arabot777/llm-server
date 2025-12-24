@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 )
 
 type ChannelTest struct {

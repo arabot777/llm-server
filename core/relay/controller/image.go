@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
-	"github.com/labring/aiproxy/core/relay/utils"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/utils"
 )
 
 func getImagesRequest(c *gin.Context) (*relaymodel.ImageRequest, error) {

@@ -1,8 +1,8 @@
 package openai
 
 import (
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/relay/model"
 )
 
 func ResponseText2Usage(responseText, modeName string, promptTokens int64) model.ChatUsage {

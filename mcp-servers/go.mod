@@ -1,20 +1,20 @@
-module github.com/labring/aiproxy/mcp-servers
+module github.com/wavespeed/llm-server/mcp-servers
 
 go 1.25.5
 
-replace github.com/labring/aiproxy/core => ../core
+replace github.com/wavespeed/llm-server/core => ../core
 
-replace github.com/labring/aiproxy/openapi-mcp => ../openapi-mcp
+replace github.com/wavespeed/llm-server/openapi-mcp => ../openapi-mcp
 
 require (
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/bytedance/sonic v1.14.2
 	github.com/go-shiori/go-readability v0.0.0-20251205110129-5db1dc9836f0
-	github.com/labring/aiproxy/core v0.0.0-20251212144731-5fbec1516a45
-	github.com/labring/aiproxy/openapi-mcp v0.0.0-20251212144731-5fbec1516a45
 	github.com/mark3labs/mcp-go v0.43.2
 	github.com/temoto/robotstxt v1.1.2
+	github.com/wavespeed/llm-server/core v0.0.0-20251212144731-5fbec1516a45
+	github.com/wavespeed/llm-server/openapi-mcp v0.0.0-20251212144731-5fbec1516a45
 	golang.org/x/text v0.32.0
 )
 

@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	mcp "github.com/labring/aiproxy/core/controller/mcp"
-	"github.com/labring/aiproxy/core/middleware"
+	mcp "github.com/wavespeed/llm-server/core/controller/mcp"
+	"github.com/wavespeed/llm-server/core/middleware"
 )
 
 func SetMCPRouter(router *gin.Engine) {

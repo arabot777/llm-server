@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/bytedance/sonic"
-	textembeddingsinference "github.com/labring/aiproxy/core/relay/adaptor/text-embeddings-inference"
-	"github.com/labring/aiproxy/core/relay/meta"
+	textembeddingsinference "github.com/wavespeed/llm-server/core/relay/adaptor/text-embeddings-inference"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

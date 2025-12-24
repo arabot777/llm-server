@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/trylock"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/trylock"
 )
 
 type FeishuNotifier struct {

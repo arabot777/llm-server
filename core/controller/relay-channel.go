@@ -8,12 +8,12 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/monitor"
-	"github.com/labring/aiproxy/core/relay/adaptors"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/monitor"
+	"github.com/wavespeed/llm-server/core/relay/adaptors"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 )
 
 const (

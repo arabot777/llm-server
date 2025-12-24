@@ -6,9 +6,9 @@ import (
 	"net/http"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 )
 
 type ImageRequest struct {

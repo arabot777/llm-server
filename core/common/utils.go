@@ -4,7 +4,7 @@ import (
 	"encoding/hex"
 
 	"github.com/google/uuid"
-	"github.com/labring/aiproxy/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/conv"
 )
 
 func ShortUUID() string {

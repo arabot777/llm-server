@@ -5,7 +5,7 @@ import (
 	"go/constant"
 	"testing"
 
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/model"
 	"github.com/smartystreets/goconvey/convey"
 	"gorm.io/gorm"
 )

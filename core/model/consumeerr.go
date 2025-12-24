@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common"
+	"github.com/wavespeed/llm-server/core/common"
 )
 
 type ConsumeError struct {

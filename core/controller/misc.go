@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/middleware"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/middleware"
 )
 
 type StatusData struct {

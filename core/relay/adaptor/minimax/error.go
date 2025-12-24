@@ -7,9 +7,9 @@ import (
 	"strconv"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 type BaseResp struct {

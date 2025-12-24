@@ -1,8 +1,8 @@
 package context7
 
 import (
-	"github.com/labring/aiproxy/core/model"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	"github.com/wavespeed/llm-server/core/model"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 )
 
 const defaultURL = "https://mcp.context7.com/mcp"

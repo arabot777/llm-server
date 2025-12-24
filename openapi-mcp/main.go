@@ -6,7 +6,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/labring/aiproxy/openapi-mcp/convert"
+	"github.com/wavespeed/llm-server/openapi-mcp/convert"
 	"github.com/mark3labs/mcp-go/server"
 )
 

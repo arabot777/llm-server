@@ -3,7 +3,7 @@ package balance
 import (
 	"context"
 
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 type GroupBalance interface {

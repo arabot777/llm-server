@@ -5,10 +5,10 @@ import (
 	"math"
 	"strings"
 
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/image"
-	intertiktoken "github.com/labring/aiproxy/core/common/tiktoken"
-	"github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/image"
+	intertiktoken "github.com/wavespeed/llm-server/core/common/tiktoken"
+	"github.com/wavespeed/llm-server/core/relay/model"
 	log "github.com/sirupsen/logrus"
 	"github.com/tiktoken-go/tokenizer"
 )

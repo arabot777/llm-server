@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/reqlimit"
+	"github.com/wavespeed/llm-server/core/common/reqlimit"
 )
 
 func TestNewInMemoryRateLimiter(t *testing.T) {

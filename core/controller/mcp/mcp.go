@@ -7,11 +7,11 @@ import (
 	"net/url"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/mcpproxy"
-	"github.com/labring/aiproxy/core/model"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
-	"github.com/labring/aiproxy/openapi-mcp/convert"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/mcpproxy"
+	"github.com/wavespeed/llm-server/core/model"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
+	"github.com/wavespeed/llm-server/openapi-mcp/convert"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

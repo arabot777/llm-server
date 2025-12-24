@@ -8,11 +8,11 @@ import (
 	"testing"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor/gemini"
-	"github.com/labring/aiproxy/core/relay/meta"
-	"github.com/labring/aiproxy/core/relay/mode"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/gemini"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/mode"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 	"github.com/stretchr/testify/assert"
 )
 

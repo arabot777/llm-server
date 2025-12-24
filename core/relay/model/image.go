@@ -1,6 +1,6 @@
 package model
 
-import "github.com/labring/aiproxy/core/model"
+import "github.com/wavespeed/llm-server/core/model"
 
 // https://platform.openai.com/docs/api-reference/images/create
 

@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
 	"github.com/aws/smithy-go/auth/bearer"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 )
 
 type AwsConfig struct {

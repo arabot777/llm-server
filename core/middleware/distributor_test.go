@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	jsoniter "github.com/json-iterator/go"
-	"github.com/labring/aiproxy/core/middleware"
+	"github.com/wavespeed/llm-server/core/middleware"
 )
 
 type ModelRequest struct {

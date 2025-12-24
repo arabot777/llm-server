@@ -3,10 +3,10 @@ package router
 import (
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/env"
-	"github.com/labring/aiproxy/core/controller"
-	mcp "github.com/labring/aiproxy/core/controller/mcp"
-	"github.com/labring/aiproxy/core/middleware"
+	"github.com/wavespeed/llm-server/core/common/env"
+	"github.com/wavespeed/llm-server/core/controller"
+	mcp "github.com/wavespeed/llm-server/core/controller/mcp"
+	"github.com/wavespeed/llm-server/core/middleware"
 )
 
 func SetAPIRouter(router *gin.Engine) {

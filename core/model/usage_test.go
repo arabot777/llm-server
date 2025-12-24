@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 func TestPrice_ValidateConditionalPrices(t *testing.T) {

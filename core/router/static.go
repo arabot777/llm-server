@@ -11,8 +11,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/public"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/public"
 	"github.com/sirupsen/logrus"
 )
 
@@ -26,7 +26,7 @@ func SetStaticFileRouter(router *gin.Engine) {
 	if config.DisableWeb {
 		router.GET("/", func(ctx *gin.Context) {
 			ctx.HTML(http.StatusOK, "index.tmpl", gin.H{
-				"URL":               "https://github.com/labring/aiproxy",
+				"URL":               "https://github.com/wavespeed/llm-server",
 				"INITIAL_COUNTDOWN": 15,
 			})
 		})

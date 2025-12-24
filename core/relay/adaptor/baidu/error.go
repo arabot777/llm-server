@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 // https://cloud.baidu.com/doc/WENXINWORKSHOP/s/tlmyncueh

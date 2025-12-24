@@ -10,13 +10,13 @@ import (
 	"time"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/conv"
-	"github.com/labring/aiproxy/core/common/ipblack"
-	"github.com/labring/aiproxy/core/common/notify"
-	"github.com/labring/aiproxy/core/common/trylock"
-	"github.com/labring/aiproxy/core/controller"
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/ipblack"
+	"github.com/wavespeed/llm-server/core/common/notify"
+	"github.com/wavespeed/llm-server/core/common/trylock"
+	"github.com/wavespeed/llm-server/core/controller"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 // AutoTestBannedModelsTask 自动测试被禁用的模型

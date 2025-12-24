@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/monitor"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/monitor"
 )
 
 // GetAllChannelModelErrorRates godoc

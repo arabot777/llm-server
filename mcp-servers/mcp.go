@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/model"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

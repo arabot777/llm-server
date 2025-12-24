@@ -1,8 +1,8 @@
 package doubao
 
 import (
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 )
 
 // https://console.volcengine.com/ark/region:ark+cn-beijing/model

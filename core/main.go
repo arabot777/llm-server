@@ -9,12 +9,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/consume"
-	"github.com/labring/aiproxy/core/controller"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/task"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/consume"
+	"github.com/wavespeed/llm-server/core/controller"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/task"
 	log "github.com/sirupsen/logrus"
 )
 

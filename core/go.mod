@@ -1,4 +1,4 @@
-module github.com/labring/aiproxy/core
+module github.com/wavespeed/llm-server/core
 
 go 1.25.5
 
@@ -19,8 +19,6 @@ require (
 	github.com/gorilla/websocket v1.5.3
 	github.com/joho/godotenv v1.5.1
 	github.com/json-iterator/go v1.1.12
-	github.com/labring/aiproxy/mcp-servers v0.0.0-20251212144731-5fbec1516a45
-	github.com/labring/aiproxy/openapi-mcp v0.0.0-20251212144731-5fbec1516a45
 	github.com/mark3labs/mcp-go v0.43.2
 	github.com/maruel/natural v1.2.1
 	github.com/mattn/go-isatty v0.0.20
@@ -37,6 +35,8 @@ require (
 	github.com/swaggo/gin-swagger v1.6.1
 	github.com/swaggo/swag v1.16.6
 	github.com/tiktoken-go/tokenizer v0.7.0
+	github.com/wavespeed/llm-server/mcp-servers v0.0.0-20251212144731-5fbec1516a45
+	github.com/wavespeed/llm-server/openapi-mcp v0.0.0-20251212144731-5fbec1516a45
 	golang.org/x/image v0.34.0
 	golang.org/x/sync v0.19.0
 	google.golang.org/api v0.257.0
@@ -158,6 +158,6 @@ require (
 	modernc.org/sqlite v1.40.1 // indirect
 )
 
-replace github.com/labring/aiproxy/openapi-mcp => ../openapi-mcp
+replace github.com/wavespeed/llm-server/openapi-mcp => ../openapi-mcp
 
-replace github.com/labring/aiproxy/mcp-servers => ../mcp-servers
+replace github.com/wavespeed/llm-server/mcp-servers => ../mcp-servers

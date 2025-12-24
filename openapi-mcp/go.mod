@@ -1,4 +1,4 @@
-module github.com/labring/aiproxy/openapi-mcp
+module github.com/wavespeed/llm-server/openapi-mcp
 
 go 1.25.5
 

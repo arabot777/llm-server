@@ -8,10 +8,10 @@ import (
 	"testing"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor/ollama"
-	"github.com/labring/aiproxy/core/relay/meta"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/ollama"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 	"github.com/stretchr/testify/assert"
 )
 

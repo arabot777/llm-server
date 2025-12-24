@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/controller/utils"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/controller/utils"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 func parseCommonParams(c *gin.Context) (params struct {

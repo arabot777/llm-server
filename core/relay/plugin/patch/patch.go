@@ -12,11 +12,11 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/bytedance/sonic/ast"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/meta"
-	"github.com/labring/aiproxy/core/relay/plugin"
-	"github.com/labring/aiproxy/core/relay/plugin/noop"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/plugin"
+	"github.com/wavespeed/llm-server/core/relay/plugin/noop"
 )
 
 var _ plugin.Plugin = (*Plugin)(nil)

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/labring/aiproxy/core/common"
+	"github.com/wavespeed/llm-server/core/common"
 	"gorm.io/gorm"
 )
 

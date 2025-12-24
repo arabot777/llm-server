@@ -1,8 +1,8 @@
 package kuaidi100
 
 import (
-	"github.com/labring/aiproxy/core/model"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	"github.com/wavespeed/llm-server/core/model"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 )
 
 const defaultURL = "http://api.kuaidi100.com/mcp/sse"

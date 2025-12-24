@@ -9,13 +9,13 @@ import (
 
 	"github.com/bytedance/sonic/ast"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
-	"github.com/labring/aiproxy/core/relay/meta"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
-	"github.com/labring/aiproxy/core/relay/utils"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/utils"
 )
 
 // qwen3 enable_thinking must be set to false for non-streaming calls

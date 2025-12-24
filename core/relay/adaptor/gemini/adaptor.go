@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/meta"
-	"github.com/labring/aiproxy/core/relay/mode"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
-	"github.com/labring/aiproxy/core/relay/utils"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/mode"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/utils"
 )
 
 type Adaptor struct{}

@@ -6,7 +6,7 @@ import (
 	"reflect"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/conv"
 	"gorm.io/gorm/schema"
 )
 

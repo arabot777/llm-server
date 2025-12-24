@@ -5,12 +5,12 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/adaptor/gemini"
-	vertexclaude "github.com/labring/aiproxy/core/relay/adaptor/vertexai/claude"
-	vertexgemini "github.com/labring/aiproxy/core/relay/adaptor/vertexai/gemini"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/gemini"
+	vertexclaude "github.com/wavespeed/llm-server/core/relay/adaptor/vertexai/claude"
+	vertexgemini "github.com/wavespeed/llm-server/core/relay/adaptor/vertexai/gemini"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 )
 
 type ModelType int

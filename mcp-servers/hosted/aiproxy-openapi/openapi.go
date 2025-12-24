@@ -5,9 +5,9 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/labring/aiproxy/core/docs"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
-	"github.com/labring/aiproxy/openapi-mcp/convert"
+	"github.com/wavespeed/llm-server/core/docs"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
+	"github.com/wavespeed/llm-server/openapi-mcp/convert"
 )
 
 var configTemplates = map[string]mcpservers.ConfigTemplate{

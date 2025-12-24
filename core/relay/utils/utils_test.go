@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/labring/aiproxy/core/relay/utils"
+	"github.com/wavespeed/llm-server/core/relay/utils"
 	"github.com/smartystreets/goconvey/convey"
 )
 

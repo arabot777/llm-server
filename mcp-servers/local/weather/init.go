@@ -3,8 +3,8 @@ package weather
 import (
 	_ "embed"
 
-	"github.com/labring/aiproxy/core/model"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	"github.com/wavespeed/llm-server/core/model"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 )
 
 //go:embed README.md

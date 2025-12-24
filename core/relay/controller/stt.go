@@ -9,9 +9,9 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/audio"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
+	"github.com/wavespeed/llm-server/core/common/audio"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
 )
 
 func GetSTTRequestUsage(c *gin.Context, mc model.ModelConfig) (model.Usage, error) {

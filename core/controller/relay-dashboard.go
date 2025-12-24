@@ -6,9 +6,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/balance"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
+	"github.com/wavespeed/llm-server/core/common/balance"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 )

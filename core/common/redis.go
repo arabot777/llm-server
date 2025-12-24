@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/config"
 	"github.com/redis/go-redis/v9"
 	log "github.com/sirupsen/logrus"
 )

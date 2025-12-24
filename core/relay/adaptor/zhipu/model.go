@@ -1,7 +1,7 @@
 package zhipu
 
 import (
-	"github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/model"
 )
 
 type Request struct {

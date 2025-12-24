@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/labring/aiproxy/core/common"
+	"github.com/wavespeed/llm-server/core/common"
 	log "github.com/sirupsen/logrus"
 )
 

@@ -1,6 +1,6 @@
 package model
 
-import "github.com/labring/aiproxy/core/relay/adaptor"
+import "github.com/wavespeed/llm-server/core/relay/adaptor"
 
 type AnthropicMessageRequest struct {
 	Model    string    `json:"model,omitempty"`

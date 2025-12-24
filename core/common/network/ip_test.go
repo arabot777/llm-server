@@ -3,7 +3,7 @@ package network_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/network"
+	"github.com/wavespeed/llm-server/core/common/network"
 	"github.com/smartystreets/goconvey/convey"
 )
 

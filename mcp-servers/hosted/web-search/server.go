@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/bytedance/sonic"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
-	"github.com/labring/aiproxy/mcp-servers/hosted/web-search/engine"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
+	"github.com/wavespeed/llm-server/mcp-servers/hosted/web-search/engine"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 )

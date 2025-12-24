@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/labring/aiproxy/core/relay/adaptor/anthropic"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/anthropic"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 )
 
 func TestConvertGeminiRequestToStruct_Tools(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"sync/atomic"
 
-	"github.com/labring/aiproxy/core/common/env"
+	"github.com/wavespeed/llm-server/core/common/env"
 )
 
 var (

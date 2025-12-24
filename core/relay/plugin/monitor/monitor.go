@@ -9,16 +9,16 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/common/conv"
-	"github.com/labring/aiproxy/core/common/notify"
-	"github.com/labring/aiproxy/core/common/reqlimit"
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/monitor"
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/meta"
-	"github.com/labring/aiproxy/core/relay/plugin"
-	"github.com/labring/aiproxy/core/relay/plugin/noop"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/notify"
+	"github.com/wavespeed/llm-server/core/common/reqlimit"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/monitor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/plugin"
+	"github.com/wavespeed/llm-server/core/relay/plugin/noop"
 )
 
 var _ plugin.Plugin = (*ChannelMonitor)(nil)

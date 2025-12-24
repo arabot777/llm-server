@@ -2,10 +2,10 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 	// relay model used by swagger
-	_ "github.com/labring/aiproxy/core/relay/model"
+	_ "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 // Completions godoc

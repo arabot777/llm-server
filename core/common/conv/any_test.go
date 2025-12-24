@@ -3,7 +3,7 @@ package conv_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/conv"
 	"github.com/smartystreets/goconvey/convey"
 )
 

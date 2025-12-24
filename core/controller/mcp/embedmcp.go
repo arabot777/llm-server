@@ -10,12 +10,12 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/mcpproxy"
-	"github.com/labring/aiproxy/core/middleware"
-	"github.com/labring/aiproxy/core/model"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	"github.com/wavespeed/llm-server/core/mcpproxy"
+	"github.com/wavespeed/llm-server/core/middleware"
+	"github.com/wavespeed/llm-server/core/model"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 	// init embed mcp
-	_ "github.com/labring/aiproxy/mcp-servers/mcpregister"
+	_ "github.com/wavespeed/llm-server/mcp-servers/mcpregister"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/config"
 )
 
 var memModelMonitor *MemModelMonitor

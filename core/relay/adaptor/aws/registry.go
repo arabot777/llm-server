@@ -3,9 +3,9 @@ package aws
 import (
 	"strings"
 
-	"github.com/labring/aiproxy/core/model"
-	claude "github.com/labring/aiproxy/core/relay/adaptor/aws/claude"
-	"github.com/labring/aiproxy/core/relay/adaptor/aws/utils"
+	"github.com/wavespeed/llm-server/core/model"
+	claude "github.com/wavespeed/llm-server/core/relay/adaptor/aws/claude"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/aws/utils"
 )
 
 type ModelType int

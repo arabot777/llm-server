@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/image"
+	"github.com/wavespeed/llm-server/core/common/image"
 	"github.com/smartystreets/goconvey/convey"
 )
 

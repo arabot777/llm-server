@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/consume"
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/common/consume"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 func TestCalculateAmount(t *testing.T) {

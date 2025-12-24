@@ -1,6 +1,6 @@
 package splitter
 
-import "github.com/labring/aiproxy/core/common/conv"
+import "github.com/wavespeed/llm-server/core/common/conv"
 
 const (
 	NThinkHead = "\n<think>\n"

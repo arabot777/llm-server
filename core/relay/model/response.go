@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/labring/aiproxy/core/model"
+	"github.com/wavespeed/llm-server/core/model"
 )
 
 // InputItemType represents the type of an input item

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/middleware"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/middleware"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 // ListModels godoc

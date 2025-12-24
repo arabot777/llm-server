@@ -146,6 +146,12 @@ github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51/go.mod h1:C
 github.com/klauspost/cpuid/v2 v2.2.9/go.mod h1:rqkxqrZ1EhYM9G+hXH7YdowN5R5RGN6NK4QwQ3WMXF8=
 github.com/knz/go-libedit v1.10.1 h1:0pHpWtx9vcvC0xGZqEQlQdfSQs7WRlAjuPvk3fOZDCo=
 github.com/kr/pretty v0.3.0/go.mod h1:640gp4NfQd8pI5XOwp5fnNeVWj67G7CFk/SaSQn7NBk=
+github.com/labring/aiproxy/core v0.0.0-20251212144731-5fbec1516a45 h1:aWDPOiOAlYXcpHllZXb3PEZaGX6xg2OmUuYaT4FWsuA=
+github.com/labring/aiproxy/core v0.0.0-20251212144731-5fbec1516a45/go.mod h1:666t73N1SIwKWEz2a6MfJ+li8FGudIWQ/NqCj9Z1nbI=
+github.com/labring/aiproxy/mcp-servers v0.0.0-20251107061741-2039a4b5eab1 h1:L1AWJXne6/lUPlE3Yt4M0Jh5OEdL/Ea/nNe89SD9BHY=
+github.com/labring/aiproxy/mcp-servers v0.0.0-20251107061741-2039a4b5eab1/go.mod h1:ElEi5VTxnymA/LjzTR7UZukXeF9e80Vmu6gqQTetL5w=
+github.com/labring/aiproxy/openapi-mcp v0.0.0-20251212144731-5fbec1516a45 h1:Rw4e7wk6vM80D0bwky2EnNrB0PyEN+XbpEIGaUoTeGY=
+github.com/labring/aiproxy/openapi-mcp v0.0.0-20251212144731-5fbec1516a45/go.mod h1:Tvz7TEFRmJKMeKCKPregBDCeQIyy6JTmaVMz3X0UOmQ=
 github.com/mailru/easyjson v0.0.0-20190614124828-94de47d64c63/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
 github.com/mailru/easyjson v0.0.0-20190626092158-b2ccc519800e/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
 github.com/mailru/easyjson v0.7.6/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJJLY9Nlc=

@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/labring/aiproxy/core/common/env"
+	"github.com/wavespeed/llm-server/core/common/env"
 )
 
 var (

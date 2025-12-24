@@ -1,6 +1,6 @@
 package ali
 
-import model "github.com/labring/aiproxy/core/relay/model"
+import model "github.com/wavespeed/llm-server/core/relay/model"
 
 type ImageRequest struct {
 	Input struct {

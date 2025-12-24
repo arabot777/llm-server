@@ -8,13 +8,13 @@ import (
 	"time"
 
 	"github.com/glebarez/sqlite"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/env"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/env"
 
 	// import fastjson serializer
-	_ "github.com/labring/aiproxy/core/common/fastJSONSerializer"
-	"github.com/labring/aiproxy/core/common/notify"
+	_ "github.com/wavespeed/llm-server/core/common/fastJSONSerializer"
+	"github.com/wavespeed/llm-server/core/common/notify"
 	log "github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"

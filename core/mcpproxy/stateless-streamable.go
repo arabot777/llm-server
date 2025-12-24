@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/common"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	"github.com/wavespeed/llm-server/core/common"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 	"github.com/mark3labs/mcp-go/mcp"
 )
 

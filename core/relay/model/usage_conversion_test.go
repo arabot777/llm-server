@@ -3,8 +3,8 @@ package model_test
 import (
 	"testing"
 
-	coremodel "github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/model"
+	coremodel "github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/model"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -1,7 +1,7 @@
 package common
 
 import (
-	"github.com/labring/aiproxy/core/common/env"
+	"github.com/wavespeed/llm-server/core/common/env"
 )
 
 var UsingSQLite = false

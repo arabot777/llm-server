@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/ipblack"
+	"github.com/wavespeed/llm-server/core/common/ipblack"
 )
 
 func IPBlock(c *gin.Context) {

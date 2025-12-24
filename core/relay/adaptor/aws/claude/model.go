@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 )
 
 type awsModelItem struct {

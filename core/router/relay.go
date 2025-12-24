@@ -2,8 +2,8 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/controller"
-	"github.com/labring/aiproxy/core/middleware"
+	"github.com/wavespeed/llm-server/core/controller"
+	"github.com/wavespeed/llm-server/core/middleware"
 )
 
 func SetRelayRouter(router *gin.Engine) {

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/relay/meta"
-	"github.com/labring/aiproxy/core/relay/plugin/patch"
+	"github.com/wavespeed/llm-server/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/relay/plugin/patch"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

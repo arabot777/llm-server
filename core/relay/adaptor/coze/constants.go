@@ -1,5 +1,5 @@
 package coze
 
-import "github.com/labring/aiproxy/core/model"
+import "github.com/wavespeed/llm-server/core/model"
 
 var ModelList = []model.ModelConfig{}

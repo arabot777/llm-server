@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/url"
 
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 	"github.com/mark3labs/mcp-go/client/transport"
 )
 

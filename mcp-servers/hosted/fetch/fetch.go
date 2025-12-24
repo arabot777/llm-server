@@ -13,7 +13,7 @@ import (
 
 	md "github.com/JohannesKaufmann/html-to-markdown"
 	"github.com/go-shiori/go-readability"
-	mcpservers "github.com/labring/aiproxy/mcp-servers"
+	mcpservers "github.com/wavespeed/llm-server/mcp-servers"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	"github.com/temoto/robotstxt"

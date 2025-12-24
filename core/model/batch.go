@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/labring/aiproxy/core/common/config"
-	"github.com/labring/aiproxy/core/common/notify"
+	"github.com/wavespeed/llm-server/core/common/config"
+	"github.com/wavespeed/llm-server/core/common/notify"
 	"github.com/shopspring/decimal"
 )
 

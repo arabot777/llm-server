@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/labring/aiproxy/core/common/conv"
+	"github.com/wavespeed/llm-server/core/common/conv"
 )
 
 const (

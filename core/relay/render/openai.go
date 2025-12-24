@@ -8,8 +8,8 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/conv"
-	"github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common/conv"
+	"github.com/wavespeed/llm-server/core/relay/model"
 )
 
 type OpenaiSSE struct {

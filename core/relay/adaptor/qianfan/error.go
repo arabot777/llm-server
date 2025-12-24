@@ -3,9 +3,9 @@ package qianfan
 import (
 	"net/http"
 
-	"github.com/labring/aiproxy/core/relay/adaptor"
-	"github.com/labring/aiproxy/core/relay/adaptor/openai"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/adaptor"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/openai"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 func ErrorHandler(resp *http.Response) adaptor.Error {

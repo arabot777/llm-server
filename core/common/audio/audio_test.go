@@ -3,7 +3,7 @@ package audio_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/audio"
+	"github.com/wavespeed/llm-server/core/common/audio"
 	"github.com/smartystreets/goconvey/convey"
 )
 

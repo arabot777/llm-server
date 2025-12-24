@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/bytedance/sonic"
-	"github.com/labring/aiproxy/core/relay/utils"
+	"github.com/wavespeed/llm-server/core/relay/utils"
 	"github.com/patrickmn/go-cache"
 	log "github.com/sirupsen/logrus"
 )

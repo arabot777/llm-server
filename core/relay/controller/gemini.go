@@ -3,9 +3,9 @@ package controller
 import (
 	"github.com/bytedance/sonic"
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/model"
-	relaymodel "github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/model"
+	relaymodel "github.com/wavespeed/llm-server/core/relay/model"
 )
 
 // ImageInputTokensPerImage is the number of tokens per image for Gemini

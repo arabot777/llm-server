@@ -8,8 +8,8 @@ import (
 
 	"github.com/bytedance/sonic"
 	"github.com/go-viper/mapstructure/v2"
-	"github.com/labring/aiproxy/core/common"
-	"github.com/labring/aiproxy/core/relay/mode"
+	"github.com/wavespeed/llm-server/core/common"
+	"github.com/wavespeed/llm-server/core/relay/mode"
 	"gorm.io/gorm"
 )
 

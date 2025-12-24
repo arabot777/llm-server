@@ -3,8 +3,8 @@ package consume
 import (
 	"time"
 
-	"github.com/labring/aiproxy/core/model"
-	"github.com/labring/aiproxy/core/relay/meta"
+	"github.com/wavespeed/llm-server/core/model"
+	"github.com/wavespeed/llm-server/core/relay/meta"
 )
 
 func recordConsume(

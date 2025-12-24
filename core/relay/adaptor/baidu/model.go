@@ -1,7 +1,7 @@
 package baidu
 
 import (
-	"github.com/labring/aiproxy/core/relay/model"
+	"github.com/wavespeed/llm-server/core/relay/model"
 )
 
 type Error struct {

@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/labring/aiproxy/core/common/notify"
+	"github.com/wavespeed/llm-server/core/common/notify"
 )
 
 func GinRecoveryHandler(c *gin.Context) {

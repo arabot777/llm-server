@@ -3,7 +3,7 @@ package doc2x_test
 import (
 	"testing"
 
-	"github.com/labring/aiproxy/core/relay/adaptor/doc2x"
+	"github.com/wavespeed/llm-server/core/relay/adaptor/doc2x"
 )
 
 func TestHTMLTable2Md(t *testing.T) {

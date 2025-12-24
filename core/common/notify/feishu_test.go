@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/labring/aiproxy/core/common/notify"
+	"github.com/wavespeed/llm-server/core/common/notify"
 )
 
 func TestPostToFeiShuv2(t *testing.T) {
