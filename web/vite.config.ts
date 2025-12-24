@@ -30,24 +30,12 @@ export default defineConfig({
               return 'react-core';
             }
             
-            // ECharts 依赖修复 - 确保正确的加载顺序
-            if (id.includes('zrender') || id.includes('tslib')) {
-              return 'echarts-deps'; // echarts的基础依赖
-            }
-            if (id.includes('echarts/lib/util') || id.includes('echarts/lib/model')) {
-              return 'echarts-base';
-            }
-            if (id.includes('echarts/lib/chart')) {
-              return 'echarts-charts';
-            }
-            if (id.includes('echarts/lib/component')) {
-              return 'echarts-components';
-            }
-            if (id.includes('echarts')) {
-              return 'echarts-core';
+            // ECharts 完整包 - 不分割，避免依赖问题
+            if (id.includes('echarts') || id.includes('zrender') || id.includes('tslib')) {
+              return 'echarts-complete';
             }
             
-            // 基础工具库 - 优先加载
+            // 基础工具库
             if (id.includes('clsx') || id.includes('class-variance-authority')) {
               return 'css-utils';
             }
