@@ -1,0 +1,8 @@
+**/.vscode
+**/__debug_bin*
+**/.DS_Store
+
+# Local development data
+data/
+*.db
+core/.env
