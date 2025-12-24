@@ -16,7 +16,7 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            // React 核心 - 优先加载
+            // React 核心
             if (id.includes('react/jsx-runtime')) {
               return 'react-jsx';
             }
@@ -28,11 +28,6 @@ export default defineConfig({
             }
             if (id.includes('react') && !id.includes('react-dom')) {
               return 'react-core';
-            }
-            
-            // ECharts 完整包 - 不分割，避免依赖问题
-            if (id.includes('echarts') || id.includes('zrender') || id.includes('tslib')) {
-              return 'echarts-complete';
             }
             
             // 基础工具库
@@ -93,6 +88,11 @@ export default defineConfig({
             }
             if (id.includes('motion') || id.includes('framer-motion')) {
               return 'animation';
+            }
+            
+            // ECharts 动态导入 - 完全排除出初始包
+            if (id.includes('echarts') || id.includes('zrender')) {
+              return 'echarts-dynamic';
             }
             
             // 剩余的小库

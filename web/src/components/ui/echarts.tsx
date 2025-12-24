@@ -1,6 +1,9 @@
-import React, { useRef, useEffect, useMemo } from 'react'
-import { init, getInstanceByDom, type EChartsOption, type ECharts } from 'echarts'
+import React, { useRef, useEffect, useMemo, useState } from 'react'
 import { cn } from '@/lib/utils'
+
+// 动态导入echarts类型
+type EChartsOption = any
+type ECharts = any
 
 export interface EChartProps {
     option: EChartsOption
@@ -20,6 +23,23 @@ export const EChart: React.FC<EChartProps> = ({
     onClick,
 }) => {
     const chartRef = useRef<HTMLDivElement>(null)
+    const [echarts, setEcharts] = useState<any>(null)
+    const [loading, setLoading] = useState(true)
+
+    // 动态加载echarts
+    useEffect(() => {
+        const loadEcharts = async () => {
+            try {
+                const echartsModule = await import('echarts')
+                setEcharts(echartsModule)
+                setLoading(false)
+            } catch (error) {
+                console.error('Failed to load echarts:', error)
+                setLoading(false)
+            }
+        }
+        loadEcharts()
+    }, [])
 
     // 防抖的 resize 函数
     const resizeChart = useMemo(() => {
@@ -27,19 +47,19 @@ export const EChart: React.FC<EChartProps> = ({
         return () => {
             clearTimeout(timeout)
             timeout = setTimeout(() => {
-                if (chartRef.current) {
-                    const chart = getInstanceByDom(chartRef.current)
+                if (chartRef.current && echarts) {
+                    const chart = echarts.getInstanceByDom(chartRef.current)
                     chart?.resize()
                 }
             }, 300)
         }
-    }, [])
+    }, [echarts])
 
     useEffect(() => {
-        if (!chartRef.current) return
+        if (!chartRef.current || !echarts || loading) return
 
         // 初始化图表
-        const chart = init(chartRef.current, theme)
+        const chart = echarts.init(chartRef.current, theme)
 
         // 设置点击事件
         if (onClick) {
@@ -70,17 +90,28 @@ export const EChart: React.FC<EChartProps> = ({
             }
             resizeObserver.disconnect()
         }
-    }, [theme, onChartReady, onClick, resizeChart])
+    }, [echarts, loading, theme, onChartReady, onClick, resizeChart])
 
     useEffect(() => {
         // 更新图表配置
-        if (!chartRef.current) return
+        if (!chartRef.current || !echarts || loading) return
 
-        const chart = getInstanceByDom(chartRef.current)
+        const chart = echarts.getInstanceByDom(chartRef.current)
         if (chart && option) {
             chart.setOption(option, true)
         }
-    }, [option])
+    }, [echarts, loading, option])
+
+    if (loading) {
+        return (
+            <div 
+                style={style} 
+                className={cn("w-full flex items-center justify-center bg-gray-50", className)}
+            >
+                <div className="text-sm text-gray-500">Loading chart...</div>
+            </div>
+        )
+    }
 
     return (
         <div 
