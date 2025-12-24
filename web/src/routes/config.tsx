@@ -4,22 +4,22 @@ import { Suspense, lazy } from "react"
 import { ROUTES } from "./constants"
 import { ProtectedRoute } from "@/feature/auth/components/ProtectedRoute"
 
-//page
-import ModelPage from "@/pages/model/page"
-import ChannelPage from "@/pages/channel/page"
-import TokenPage from "@/pages/token/page"
-import GroupPage from "@/pages/group/page"
-import MonitorPage from "@/pages/monitor/page"
-import LogPage from "@/pages/log/page"
-import MCPPage from "@/pages/mcp/page"
-import PlaygroundPage from "@/pages/playground/page"
+//page - 全部懒加载
+const ModelPage = lazy(() => import("@/pages/model/page"))
+const ChannelPage = lazy(() => import("@/pages/channel/page"))
+const TokenPage = lazy(() => import("@/pages/token/page"))
+const GroupPage = lazy(() => import("@/pages/group/page"))
+const LogPage = lazy(() => import("@/pages/log/page"))
+const MCPPage = lazy(() => import("@/pages/mcp/page"))
+const PlaygroundPage = lazy(() => import("@/pages/playground/page"))
 
 // import layout component directly
 import { RootLayout } from "@/components/layout/RootLayOut"
 import { LoadingFallback } from "@/components/common/LoadingFallBack"
 
-// lazy load login page
+// lazy load pages - 懒加载重型页面
 const LoginPage = lazy(() => import("@/pages/auth/login"))
+const MonitorPage = lazy(() => import("@/pages/monitor/page"))
 
 // lazy load component wrapper
 const lazyLoad = (Component: React.ComponentType) => (
@@ -50,35 +50,35 @@ export function useRoutes(): RouteObject[] {
                 },
                 {
                     path: ROUTES.MONITOR,
-                    element: <MonitorPage />,
+                    element: lazyLoad(MonitorPage),
                 },
                 {
                     path: ROUTES.KEY,
-                    element: <TokenPage />,
+                    element: lazyLoad(TokenPage),
                 },
                 {
                     path: ROUTES.GROUP,
-                    element: <GroupPage />,
+                    element: lazyLoad(GroupPage),
                 },
                 {
                     path: ROUTES.CHANNEL,
-                    element: <ChannelPage />,
+                    element: lazyLoad(ChannelPage),
                 },
                 {
                     path: ROUTES.MODEL,
-                    element: <ModelPage />,
+                    element: lazyLoad(ModelPage),
                 },
                 {
                     path: ROUTES.LOG,
-                    element: <LogPage />,
+                    element: lazyLoad(LogPage),
                 },
                 {
                     path: ROUTES.MCP,
-                    element: <MCPPage />,
+                    element: lazyLoad(MCPPage),
                 },
                 {
                     path: ROUTES.PLAYGROUND,
-                    element: <PlaygroundPage />,
+                    element: lazyLoad(PlaygroundPage),
                 }
             ]
         }]

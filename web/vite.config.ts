@@ -15,30 +15,108 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // 动态分块策略
           if (id.includes('node_modules')) {
-            // React核心 - 最小化
-            if (id.includes('react') || id.includes('react-dom')) {
+            // React 拆分更细
+            if (id.includes('react-dom/client')) {
+              return 'react-dom-client';
+            }
+            if (id.includes('react-dom/server')) {
+              return 'react-dom-server';
+            }
+            if (id.includes('react-dom')) {
+              return 'react-dom-core';
+            }
+            if (id.includes('react/jsx-runtime')) {
+              return 'react-jsx';
+            }
+            if (id.includes('react') && !id.includes('react-dom')) {
               return 'react-core';
             }
-            // 图表库 - 独立块
-            if (id.includes('echarts')) {
-              return 'charts';
+            
+            // 将misc-utils进一步拆分
+            if (id.includes('lucide-react')) {
+              return 'icons';
             }
-            // Markdown - 独立块
-            if (id.includes('react-markdown') || id.includes('react-syntax-highlighter')) {
+            if (id.includes('next-themes')) {
+              return 'themes';
+            }
+            if (id.includes('zustand')) {
+              return 'state';
+            }
+            if (id.includes('react-hook-form')) {
+              return 'forms';
+            }
+            if (id.includes('downshift')) {
+              return 'downshift';
+            }
+            if (id.includes('vaul')) {
+              return 'vaul';
+            }
+            if (id.includes('sonner')) {
+              return 'toast';
+            }
+            if (id.includes('react-day-picker')) {
+              return 'datepicker';
+            }
+            if (id.includes('react-json-view')) {
+              return 'json-view';
+            }
+            
+            // 大库按功能拆分
+            if (id.includes('echarts/lib/chart')) {
+              return 'echarts-charts';
+            }
+            if (id.includes('echarts/lib/component')) {
+              return 'echarts-components';
+            }
+            if (id.includes('echarts/lib/util')) {
+              return 'echarts-utils';
+            }
+            if (id.includes('echarts')) {
+              return 'echarts-core';
+            }
+            
+            // 其他库保持不变
+            if (id.includes('@tanstack/react-query')) {
+              return 'react-query';
+            }
+            if (id.includes('@tanstack/react-table')) {
+              return 'react-table';
+            }
+            if (id.includes('@radix-ui')) {
+              return 'radix-ui';
+            }
+            if (id.includes('axios')) {
+              return 'axios';
+            }
+            if (id.includes('date-fns')) {
+              return 'date-fns';
+            }
+            if (id.includes('zod')) {
+              return 'zod';
+            }
+            if (id.includes('i18next')) {
+              return 'i18n';
+            }
+            if (id.includes('react-markdown')) {
               return 'markdown';
             }
-            // UI组件库 - 独立块
-            if (id.includes('@radix-ui')) {
-              return 'ui-lib';
+            if (id.includes('react-syntax-highlighter')) {
+              return 'syntax-highlighter';
             }
-            // 其他第三方库
-            return 'vendor';
+            if (id.includes('clsx') || id.includes('class-variance-authority')) {
+              return 'css-utils';
+            }
+            if (id.includes('motion') || id.includes('framer-motion')) {
+              return 'animation';
+            }
+            
+            // 剩余的小库
+            return 'misc-small';
           }
         }
       }
     },
-    chunkSizeWarningLimit: 200, // 200KB限制
+    chunkSizeWarningLimit: 100,
   }
 })
