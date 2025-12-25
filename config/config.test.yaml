@@ -1,0 +1,104 @@
+# ========================================
+# 核心配置
+# ========================================
+LISTEN: "0.0.0.0:80"
+
+# ========================================
+# 数据库配置
+# ========================================
+# MySQL 连接配置 (使用 Secret 中的密码)
+# 格式: root:password@tcp(mysql-service:3306)/aiproxy?charset=utf8mb4&parseTime=True&loc=Local
+# SQL_DSN 应该从 Secret 中获取,这里只提供示例格式
+SQL_DSN: "mysql://wavespeed:wavespeed&123!@tcp(172.22.17.14:3306)/llm_server?charset=utf8mb4&parseTime=True&loc=UTC&sql_mode='ALLOW_INVALID_DATES'"
+
+# 数据库连接池配置
+DB_MAX_IDLE_CONNS: "10"
+DB_MAX_OPEN_CONNS: "100"
+DB_CONN_MAX_LIFETIME: "3600"
+
+# 如果需要分离日志数据库,取消注释并配置
+# LOG_SQL_DSN: "root:password@tcp(rm-j6cetl7h7tvfy6754.mysql.rds.aliyuncs.com:3306)/aiproxy_log?charset=utf8mb4&parseTime=True&loc=Local"
+
+# 禁用自动数据库迁移 (生产环境建议先手动迁移)
+DISABLE_AUTO_MIGRATE_DB: "true"
+
+# ========================================
+# 缓存配置
+# ========================================
+# Redis 连接 (密码通过 Secret 管理)
+REDIS: "redis://172.22.0.35:6379/6"
+REDIS_KEY_PREFIX: "aiproxy"
+
+# ========================================
+# 时区与调试
+# ========================================
+TZ: "UTC"
+DEBUG: "false"  # 生产环境建议关闭
+DEBUG_SQL: "false"
+
+# ========================================
+# 日志配置
+# ========================================
+# 主日志保留时间 (小时) - 减少清理频率
+LOG_STORAGE_HOURS: "24"  # 1天
+
+# 重试日志保留时间 (小时)
+RETRY_LOG_STORAGE_HOURS: "12"  # 12小时
+
+# 详细日志保留时间 (小时)
+LOG_DETAIL_STORAGE_HOURS: "6"  # 6小时
+
+# 保存所有请求详情 (生产环境建议 false 以节省存储)
+SAVE_ALL_LOG_DETAIL: "false"
+
+# 请求/响应 Body 最大记录大小 (字节)
+LOG_DETAIL_REQUEST_BODY_MAX_SIZE: "1024"
+LOG_DETAIL_RESPONSE_BODY_MAX_SIZE: "1024"
+
+# 日志清理批次大小 - 减少批次大小
+CLEAN_LOG_BATCH_SIZE: "1000"
+
+# ========================================
+# 功能开关
+# ========================================
+BILLING_ENABLED: "true"
+DISABLE_SERVE: "false"
+DISABLE_WEB: "false"
+DISABLE_MODEL_CONFIG: "false"
+FFMPEG_ENABLED: "true"
+
+# ========================================
+# 安全配置
+# ========================================
+# IP 分组阈值 (每分钟请求数)
+IP_GROUPS_THRESHOLD: "100"
+IP_GROUPS_BAN_THRESHOLD: "200"
+
+# ========================================
+# 重试与限流配置
+# ========================================
+RETRY_TIMES: "3"
+FUZZY_TOKEN_THRESHOLD: "240000"
+
+# ========================================
+# 配额与计费配置
+# ========================================
+GROUP_MAX_TOKEN_NUM: "0"  # 0 表示无限制
+GROUP_CONSUME_LEVEL_RATIO: '{"1":1,"2":0.9,"3":0.8}'
+
+# ========================================
+# 告警配置
+# ========================================
+DEFAULT_WARN_NOTIFY_ERROR_RATE: "0.5"
+USAGE_ALERT_THRESHOLD: "100"
+USAGE_ALERT_MIN_AVG_THRESHOLD: "10"
+
+# 飞书 Webhook (可选)
+# NOTIFY_FEISHU_WEBHOOK: "https://open.feishu.cn/open-apis/bot/v2/hook/xxxxx"
+# NOTIFY_NOTE: "生产环境告警"
+
+# ========================================
+# 安全密钥配置
+# ========================================
+# 管理员密钥 (请务必修改为强密码)
+ADMIN_KEY: "wavespeed-admin"

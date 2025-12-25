@@ -3,10 +3,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aiproxy
-  namespace: test
+  name: llm-server
+  namespace: wavespeed-test
   labels:
-    app: aiproxy
+    app: llm-server
 spec:
   replicas: 1  # 生产环境建议至少 2 个副本
   strategy:
@@ -16,18 +16,18 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: aiproxy
+      app: llm-server
   template:
     metadata:
       labels:
-        app: aiproxy
+        app: llm-server
     spec:
       # 优雅停机时间
       terminationGracePeriodSeconds: 30
 
       containers:
-      - name: aiproxy
-        image: your-registry/aiproxy:latest  # 修改为您的镜像地址
+      - name: llm-server
+        image: arabot/llm-server:ws_6  # 修改为您的镜像地址
         imagePullPolicy: Always
 
         ports:
@@ -38,7 +38,7 @@ spec:
         # 环境变量 - 从 ConfigMap 加载
         envFrom:
         - configMapRef:
-            name: aiproxy-config
+            name: llm-server-config
 
         # 资源限制
         resources:
@@ -48,47 +48,10 @@ spec:
           limits:
             cpu: 2000m
             memory: 2Gi
-
-        # 健康检查 - 就绪探针
-        readinessProbe:
-          httpGet:
-            path: /api/status
-            port: 3000
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 3
-          successThreshold: 1
-          failureThreshold: 3
-
-        # 健康检查 - 存活探针
-        livenessProbe:
-          httpGet:
-            path: /api/status
-            port: 3000
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 3
-
-        # 启动探针 (给应用更多启动时间)
-        startupProbe:
-          httpGet:
-            path: /api/status
-            port: 3000
-            scheme: HTTP
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          timeoutSeconds: 3
-          successThreshold: 1
-          failureThreshold: 12  # 最多 60 秒启动时间
-
         # 挂载卷 (如果需要持久化存储)
         volumeMounts:
         - name: data
-          mountPath: /aiproxy
+          mountPath: /llm-server
 
       # 卷定义
       volumes:
@@ -100,14 +63,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: aiproxy-service
-  namespace: test
+  name: llm-server-service
+  namespace: wavespeed-test
   labels:
-    app: aiproxy
+    app: llm-server
 spec:
   type: ClusterIP
   selector:
-    app: aiproxy
+    app: llm-server
   ports:
   - name: http
     port: 3000
@@ -116,19 +79,53 @@ spec:
   sessionAffinity: None
 
 ---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    ingress-controller: nginx
+  name: llm-server
+  namespace: wavespeed-test
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: llm-test.ali-inference.wavespeed.ai
+    http:
+      paths:
+      - backend:
+          service:
+            name: llm-server-service
+            port:
+              number: 3000
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - llm-test.ali-inference.wavespeed.ai
+    secretName: ali-inference.wavespeed.ai
+
+  
+
 # Service - LoadBalancer (外部访问，可选)
 # 如果需要通过 LoadBalancer 暴露服务，取消注释以下部分
 # apiVersion: v1
 # kind: Service
 # metadata:
-#   name: aiproxy-lb
+#   name: llm-server-lb
 #   namespace: default
 #   labels:
-#     app: aiproxy
+#     app: llm-server
 # spec:
 #   type: LoadBalancer
 #   selector:
-#     app: aiproxy
+#     app: llm-server
 #   ports:
 #   - name: http
 #     port: 80
@@ -141,13 +138,13 @@ spec:
 # apiVersion: autoscaling/v2
 # kind: HorizontalPodAutoscaler
 # metadata:
-#   name: aiproxy-hpa
+#   name: llm-server-hpa
 #   namespace: default
 # spec:
 #   scaleTargetRef:
 #     apiVersion: apps/v1
 #     kind: Deployment
-#     name: aiproxy
+#     name: llm-server
 #   minReplicas: 2
 #   maxReplicas: 10
 #   metrics:
@@ -166,11 +163,11 @@ spec:
 
 ---
 # PersistentVolumeClaim (持久化存储，可选)
-# 如果需要持久化存储 /aiproxy 目录，取消注释以下部分
+# 如果需要持久化存储 /llm-server 目录，取消注释以下部分
 # apiVersion: v1
 # kind: PersistentVolumeClaim
 # metadata:
-#   name: aiproxy-pvc
+#   name: llm-server-pvc
 #   namespace: default
 # spec:
 #   accessModes:
